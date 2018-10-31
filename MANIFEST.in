@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include genome *.css
+recursive-include genome *.csv
+recursive-include genome *.html
+recursive-include genome *.ico
+recursive-include genome *.js
+recursive-include genome *.json
+recursive-include genome *.md
+recursive-include genome *.png
+recursive-include genome *.py
+recursive-include genome *.svg
+recursive-include genome *.txt
+recursive-exclude genome *.pyc
