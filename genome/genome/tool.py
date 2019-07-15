@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from six import iteritems
 
 def after_insert_patient(doc, method):
+    print "\n\n fffffffffffff\n\n\n"
     doc.hash_id = frappe.generate_hash(length=7)    
     doc.save()
     print "\n\n doc ={}\n\n".format(frappe.as_json())
