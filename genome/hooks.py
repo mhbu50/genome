@@ -81,7 +81,7 @@ app_license = "MIT"
 
 doc_events = {
  	"patient": {
- 		"after_insert": "genom.genome.tool.after_insert_patient"
+ 		"after_insert": "genome.genome.tool.after_insert_patient"
 	}
  }
 
