@@ -16,10 +16,12 @@
    "description": null, 
    "docstatus": 0, 
    "dt": "Patient", 
+   "fetch_from": null, 
+   "fetch_if_empty": 0, 
    "fieldname": "hash_id", 
    "fieldtype": "Data", 
    "hidden": 0, 
-   "idx": 15, 
+   "idx": 18, 
    "ignore_user_permissions": 0, 
    "ignore_xss_filter": 0, 
    "in_global_search": 0, 
@@ -45,6 +47,7 @@
    "report_hide": 0, 
    "reqd": 0, 
    "search_index": 0, 
+   "translatable": 0, 
    "unique": 0, 
    "width": null
   }
@@ -56,7 +59,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 1, 
    "creation": "2017-01-23 14:03:49.084370", 
@@ -82,7 +84,6 @@
    "set_user_permissions": 0, 
    "share": 1, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 1
   }, 
   {
@@ -91,7 +92,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 1, 
    "creation": "2017-01-23 14:03:49.084370", 
@@ -117,7 +117,6 @@
    "set_user_permissions": 0, 
    "share": 1, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 1
   }, 
   {
@@ -126,7 +125,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 0, 
    "creation": "2017-01-23 14:03:49.084370", 
@@ -152,7 +150,6 @@
    "set_user_permissions": 0, 
    "share": 1, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 0
   }, 
   {
@@ -161,7 +158,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 1, 
    "cancel": 0, 
    "create": 0, 
    "creation": "2018-10-21 18:30:27.831014", 
@@ -187,7 +183,6 @@
    "set_user_permissions": 0, 
    "share": 0, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 1
   }, 
   {
@@ -196,7 +191,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 1, 
    "creation": "2018-10-22 18:50:39.572895", 
@@ -222,7 +216,6 @@
    "set_user_permissions": 0, 
    "share": 1, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 1
   }, 
   {
@@ -231,7 +224,6 @@
    "_liked_by": null, 
    "_user_tags": null, 
    "amend": 0, 
-   "apply_user_permissions": 0, 
    "cancel": 0, 
    "create": 1, 
    "creation": "2018-10-22 18:51:24.299861", 
@@ -257,7 +249,6 @@
    "set_user_permissions": 0, 
    "share": 1, 
    "submit": 0, 
-   "user_permission_doctypes": null, 
    "write": 1
   }
  ], 
@@ -268,17 +259,17 @@
    "_comments": null, 
    "_liked_by": null, 
    "_user_tags": null, 
-   "creation": "2019-07-15 15:12:21.355078", 
+   "creation": "2019-07-16 15:35:24.047523", 
    "default_value": null, 
    "doc_type": "Patient", 
    "docstatus": 0, 
    "doctype_or_field": "DocType", 
    "field_name": null, 
    "idx": 0, 
-   "modified": "2019-07-15 15:12:21.355078", 
-   "modified_by": "Administrator", 
+   "modified": "2019-07-16 15:35:24.047523", 
+   "modified_by": "mhbu50@gmail.com", 
    "name": "Patient-read_only_onload", 
-   "owner": "Administrator", 
+   "owner": "mhbu50@gmail.com", 
    "parent": null, 
    "parentfield": null, 
    "parenttype": null, 
