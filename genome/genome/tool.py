@@ -9,7 +9,7 @@ from frappe.utils import flt, today, getdate, add_years, time_diff, get_datetime
 from frappe.model.document import Document
 from datetime import datetime, timedelta
 from frappe.utils.pdf import get_pdf
-from frappe.utils.file_manager import delete_file
+from frappe.utils.file_manager import delete_file, get_file, get_files_path
 import dropbox
 from dropbox.files import WriteMode
 from dropbox.exceptions import ApiError, AuthError
@@ -21,8 +21,8 @@ def after_insert_patient(doc, method):
 @frappe.whitelist()
 def add_pdf(doc,disease):
     execute(doc,disease)
-    frappe.enqueue(method=execute, queue='long', timeout=30, is_async=True,
-            **{"doc": doc,"disease": disease})
+    # frappe.enqueue(method=execute, queue='long', timeout=30, is_async=True,
+    #         **{"doc": doc,"disease": disease})
 
 def execute(doc,disease):  
     envelop_name = frappe.generate_hash(length=36)
@@ -43,6 +43,14 @@ def execute(doc,disease):
              "html_pattern": disease_doc.html_pattern})
     
     save_and_attach(html_data2, shareable_file_name)
+    dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
+    # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.lab_test_result_file[7:]))
+    # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.arabic_result_file[7:]))
+    print("envelop_name = {}".format(envelop_name))
+    print("shareable_file_name = {}".format(shareable_file_name))
+    check_file(envelop_name)
+    check_file(shareable_file_name)
+    frappe.msgprint("dddddddd")
 
 def get_html_data(doctype, name):
     """Document -> HTML."""
@@ -58,8 +66,7 @@ def save_and_attach(content, to_name):
 
 def upload_dropbox(file_name):
     dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
-
-    LOCALFILE = '/home/mohd/new-bench/sites/genome.org/public/files/{}'.format(file_name) #local path 
+    LOCALFILE = '{}/{}'.format(frappe.get_site_path("public", "files"),file_name) #local path 
     BACKUPPATH = '/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name) 
 
     with open(LOCALFILE, 'rb') as f:
@@ -76,6 +83,18 @@ def upload_dropbox(file_name):
 		        # delete_file(existing_file)
 
             except ApiError as err:
+                if err.user_message_text:
+                    print(err.user_message_text)
+                    sys.exit()
+                else:
+                    print(err)
+                    sys.exit()
+
+def check_file(file_name):
+    try:
+        dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
+        print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}.html'.format(file_name))
+    except ApiError as err:
                 if err.user_message_text:
                     print(err.user_message_text)
                     sys.exit()
