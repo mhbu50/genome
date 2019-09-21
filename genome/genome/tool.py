@@ -10,6 +10,7 @@ from frappe.model.document import Document
 from datetime import datetime, timedelta
 from frappe.utils.pdf import get_pdf
 from frappe.utils.file_manager import delete_file, get_file, get_files_path
+from frappe.core.doctype.sms_settings.sms_settings import send_sms
 import dropbox
 from dropbox.files import WriteMode
 from dropbox.exceptions import ApiError, AuthError
@@ -31,8 +32,11 @@ def execute(doc,disease):
     upload_dropbox(lab_test_doc.lab_test_result_file[7:])
     upload_dropbox(lab_test_doc.arabic_result_file[7:])
 
+    sms_message = frappe.db.get_single_value('Healthcare Settings','sms_printed')
+    envelope_template = frappe.db.get_single_value('Healthcare Settings','envelope_template')
+
     html_data1 = frappe.render_template("templates/envelop.html",
-			{"file1":lab_test_doc.lab_test_result_file[7:],"file2":lab_test_doc.arabic_result_file[7:],
+			{"envelope_template":envelope_template,"file1":lab_test_doc.lab_test_result_file[7:],"file2":lab_test_doc.arabic_result_file[7:],
             "shareable_file_name": shareable_file_name, "hashid": 46546546546})   
     save_and_attach(html_data1, envelop_name)
     
@@ -51,6 +55,7 @@ def execute(doc,disease):
     check_file(envelop_name)
     check_file(shareable_file_name)
     frappe.msgprint("dddddddd")
+    send_sms(["996504913826"], sms_message)
 
 def get_html_data(doctype, name):
     """Document -> HTML."""

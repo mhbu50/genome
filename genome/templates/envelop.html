@@ -10,13 +10,12 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <script>
 
-function send_whatsapp()
-{
-    var whatsappMessage = "My title" + "\r\n\r\n" + "My description and link \r\n" +"http://saudigenome.net/contact-us-2/?hashid="+ {{hashid}};
-    whatsappMessage = window.encodeURIComponent(whatsappMessage)
-    location.href = "https://api.whatsapp.com/send?text=" + whatsappMessage;
+        function send_whatsapp() {
+            var whatsappMessage = "My title" + "\r\n\r\n" + "My description and link \r\n" + "http://saudigenome.net/contact-us-2/?hashid=" + {{ hashid }}+";        
+        whatsappMessage = window.encodeURIComponent(whatsappMessage)
+        location.href = "https://api.whatsapp.com/send?text=" + whatsappMessage;
 }
-        
+
     </script>
 </head>
 
@@ -34,7 +33,7 @@ function send_whatsapp()
                 <h5 class="mb-0">مرحبًا</h5>
             </div>
             <div class="card-body">
-                <p class="card-text">مركز جينوم مركز جينوم مركز جينوم مركز جينوم مركز جينوم مركز جينوم مركز جينوم
+                <p class="card-text">{{envelope_template}}</p>
 
             </div>
         </div>
