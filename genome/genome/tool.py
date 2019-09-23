@@ -20,31 +20,33 @@ def after_insert_patient(doc, method):
     doc.save()
 
 @frappe.whitelist()
-def add_pdf(doc,disease):
-    execute(doc,disease)
-    # frappe.enqueue(method=execute, queue='long', timeout=30, is_async=True,
-    #         **{"doc": doc,"disease": disease})
+def add_pdf(doc):
+    execute(doc)
 
-def execute(doc,disease):  
-    envelop_name = frappe.generate_hash(length=36)
-    shareable_file_name = frappe.generate_hash(length=36) 
+def execute(doc):  
+    envelop_name = frappe.generate_hash(length=34)
+    shareable_file_name = frappe.generate_hash(length=34) 
     lab_test_doc = frappe.get_doc("Lab Test",doc) 
+    lab_test_doc.envelope_id = envelop_name
+    lab_test_doc.save()
+
     upload_dropbox(lab_test_doc.lab_test_result_file[7:])
     upload_dropbox(lab_test_doc.arabic_result_file[7:])
 
     sms_message = frappe.db.get_single_value('Healthcare Settings','sms_printed')
-    envelope_template = frappe.db.get_single_value('Healthcare Settings','envelope_template')
+    # envelope_template = frappe.db.get_single_value('Healthcare Settings','envelope_template')
 
-    html_data1 = frappe.render_template("templates/envelop.html",
-			{"envelope_template":envelope_template,"file1":lab_test_doc.lab_test_result_file[7:],"file2":lab_test_doc.arabic_result_file[7:],
-            "shareable_file_name": shareable_file_name, "hashid": 46546546546})   
+    html_data1 = frappe.render_template("templates/envlop.html",
+			{"patient_name":lab_test_doc.patient_name,"disease":lab_test_doc.disease,"file1":lab_test_doc.lab_test_result_file[7:],"file2":lab_test_doc.arabic_result_file[7:],
+            "shareable_file_name": shareable_file_name, "hash_id": lab_test_doc.hash_id})   
     save_and_attach(html_data1, envelop_name)
     
-    disease_doc = frappe.get_doc("Diseases",disease)  
-    html_data2 = frappe.render_template("templates/shareable_file.html",
+    disease_doc = frappe.get_doc("Diseases",lab_test_doc.disease)  
+    html_data2 = frappe.render_template("templates/shareable_file1.html",
 			{"disease": disease_doc.name,
              "disease_story": disease_doc.description,
-             "html_pattern": disease_doc.html_pattern})
+             "html_pattern": disease_doc.html_pattern,
+             "hash_id": lab_test_doc.hash_id})
     
     save_and_attach(html_data2, shareable_file_name)
     dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
@@ -52,10 +54,13 @@ def execute(doc,disease):
     # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.arabic_result_file[7:]))
     print("envelop_name = {}".format(envelop_name))
     print("shareable_file_name = {}".format(shareable_file_name))
-    check_file(envelop_name)
-    check_file(shareable_file_name)
-    frappe.msgprint("dddddddd")
-    send_sms(["996504913826"], sms_message)
+    time.sleep(5)
+    check_file(lab_test_doc.lab_test_result_file[7:])
+    check_file(lab_test_doc.arabic_result_file[7:])
+    check_file("{}.html".format(envelop_name))
+    check_file("{}.html".format(shareable_file_name))
+    return "uploaded"
+    # send_sms(["996504913826"], sms_message)
 
 def get_html_data(doctype, name):
     """Document -> HTML."""
@@ -67,9 +72,9 @@ def save_and_attach(content, to_name):
     file_name = "{}.html".format(to_name.replace(" ", "-").replace("/", "-")) 
     print " to_name = {} ".format(to_name)   
     save_file_on_filesystem(file_name, content, None, is_private=0)  
-    upload_dropbox("{}".format(file_name))  
+    upload_dropbox("{}".format(file_name),True)  
 
-def upload_dropbox(file_name):
+def upload_dropbox(file_name,for_delete=False):
     dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
     LOCALFILE = '{}/{}'.format(frappe.get_site_path("public", "files"),file_name) #local path 
     BACKUPPATH = '/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name) 
@@ -78,15 +83,11 @@ def upload_dropbox(file_name):
             print("Uploading " + LOCALFILE + " to Dropbox as " + BACKUPPATH + "...")
             try:
                 dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode('overwrite'))
+                if for_delete == True:
+                    print("\n\n\n in for_delete")
+                    delete_file(LOCALFILE)
                 for entry in dbx.files_list_folder('/Apps/KISSr/mhbu50.kissr.com').entries:
                     print(entry.name)
-                # time.sleep(2)
-                # shared_link_metadata = dbx.sharing_create_shared_link_with_settings(BACKUPPATH)
-                # print (shared_link_metadata.url)
-
-
-		        # delete_file(existing_file)
-
             except ApiError as err:
                 if err.user_message_text:
                     print(err.user_message_text)
@@ -98,7 +99,7 @@ def upload_dropbox(file_name):
 def check_file(file_name):
     try:
         dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M')
-        print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}.html'.format(file_name))
+        print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name))
     except ApiError as err:
                 if err.user_message_text:
                     print(err.user_message_text)

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+
+    .container {
+      height: 100vh;
+      padding-top: 67px;
+      text-align: center;
+    }
+
+    .container:before {
+      background: url("./assets/images/envelope_background.jpg") center / cover;
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    .button {
+      background-color: #59153F;
+      border: none;
+      color: white;
+      padding: 6px 6px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 17px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    pre {
+      font-family: 'boutrosmbcdinkum';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 17px;
+      white-space: pre-wrap;
+      word-break: keep-all;
+      padding: 10px;
+      margin: 30px;
+      color: 59153F;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    @font-face {
+      font-family: "boutrosmbcdinkum";
+      src: url("boutrosmbcdinkum-medium-webfont.eot");
+      src: url("boutrosmbcdinkum-medium-webfont.woff") format("woff"),
+        url("boutrosmbcdinkum-medium-webfont.otf") format("opentype"),
+        url("boutrosmbcdinkum-medium-webfont.svg#filename") format("svg");
+    }
+  </style>
+</head>
+<body>
+  <img alt="" src="./assets/images/genome_logo.png" style="float: left; width: 165px; height: 148px;" />
+  <div class="container">
+    <pre dir="rtl">
+<strong>أهلا بك</strong>
+نحييك أوﻻَ على وعيك و اهتمامك للحد من انتشار الأمراض الوراثية في العائلة و المجتمع.
+
+{{disease_story}}
+
+{{html_pattern}}
+
+نرجو الظغط على الخيار المناسب هنا ليتم التواصل معك عن طريق فريقنا المختص
+
+<button  onclick="window.location.href = 'http://saudigenome.net/contact-us-3-2/?id_hash={{hash_id}}&disease={{disease}}&interested=no';" class="button" style="margin-right: 25px;"><b>أنا مهتم بعمل الفحص لمرض أخر</b></button> <button  onclick="window.location.href = 'http://saudigenome.net/contact-us-3-2/?id_hash={{hash_id}}&disease={{disease}}&interested=yes';"  class="button"style="margin-left: 25px;"><b>أنامهتم بعمل الفحص لهذا المرض</b></button>
+</pre>
+  </div>
+</body>
+
+</html>

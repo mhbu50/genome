@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <style type="text/css">
+      body {
+        margin: 0;
+      }
+  
+      .container {
+        height: 100vh;
+        padding-top: 67px;
+        text-align: center;
+      }
+  
+      .container:before {
+        background: url("./assets/images/envelope_background.jpg") center / cover;
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        opacity: 0.2;
+      }
+  
+      .button {
+        background-color: #59153F;
+        border: none;
+        color: white;
+        padding: 6px 6px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 17px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+  
+      pre {
+        font-family: 'boutrosmbcdinkum';
+        font-weight:normal;
+        font-style:normal;
+        font-size: 17px;
+        white-space: pre-wrap;
+        word-break: keep-all;
+        padding: 10px;         
+        margin: 30px;
+        color: 59153F;
+      }
+  
+      .green {
+        background-color: green;
+      }
+
+      @font-face {
+        font-family: "boutrosmbcdinkum";
+        src: url("boutrosmbcdinkum-medium-webfont.eot");
+        src: url("boutrosmbcdinkum-medium-webfont.woff") format("woff"),
+        url("boutrosmbcdinkum-medium-webfont.otf") format("opentype"),
+        url("boutrosmbcdinkum-medium-webfont.svg#filename") format("svg");
+        }
+    </style>
+
+    <script>
+      function send_whatsapp() {
+        var whatsappMessage = "أهلا بك عزيزي" + "\r\n\r\n" + "يسعدني أن أشاركك ملف يتعلق بالامراض الوراثية و يمكنك مشاركتة الملف مع من تحب \r\n" + "http://mhbu50.kissr.com//" + {{ shareable_file_name }} + ".html";
+        whatsappMessage = window.encodeURIComponent(whatsappMessage)
+        location.href = "https://api.whatsapp.com/send?text=" + whatsappMessage;
+            }
+
+    </script>
+</head>
+
+<body>
+  
+  <img alt=""
+    src="./assets/images/genome_logo.png"
+    style="float: left; width: 165px; height:127px;" />
+
+  <div class="container">
+    <pre dir="rtl"> 
+<strong>مرحبا</strong>
+{{disease}} نرفق لك نتيجة فحصك لمرض 
+
+<button onclick="location.href='./{{file1}}'" class="button" style="margin-right: 25px;"><b>شرح الاخصائية</b></button> <button onclick="location.href='./{{file2}}'"   class="button"style="margin-left: 25px;"><b>نتيجة الفحص</b></button>
+
+عزيزنا محمد , الأمراض الوراثية تنتشر بين الأقارب, فقد يكون أحد أقاربك حاملاً للمرض دون أن تعلم, فلذلك يوصى طبياَ أن يفحص بقية أفراد العائلة عن هذا المرض (بالتحديد أقارب الدرجة الأولى و الثانية : الإخوة و الأخوات و أبناء و بنات العمـ/ة و الخالـ/ة)
+هذا الفحص يحد من إنجاب أطفال مصابين بالمرض طيلة حياتهم و يوقف انتشار المرض في العائلة بإذن الله .. قمنا بكتابة رساله قصيرة للنشر في واتساب لتشجيع أقاربك لأجراء الفحص و لك حرية التعديل و المشاركةبالطبع
+</pre>
+
+    <button onclick="send_whatsapp()" class="button green" style="text-align: center;">Whatsapp</button>
+
+    <p style="text-align: center;"><span style="color:59153F;font-size: 17px;">&nbsp;مع الملاحظة أن نتيجة فحصك خاصة بك وﻻ يمكن ﻷحد
+        الإطلاع عليها .. دمتم برعاية الله</span></p>
+  </div>
+</body>
+
+</html>
