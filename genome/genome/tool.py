@@ -1,7 +1,7 @@
+# encoding=utf8
 from __future__ import unicode_literals
 import frappe
 import json
-import sys
 import time
 from frappe import _
 from frappe.model.document import Document
@@ -14,6 +14,10 @@ from frappe.core.doctype.sms_settings.sms_settings import send_sms
 import dropbox
 from dropbox.files import WriteMode
 from dropbox.exceptions import ApiError, AuthError
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 def after_insert_patient(doc, method):
     doc.hash_id = frappe.generate_hash(length=12)    
