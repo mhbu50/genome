@@ -38,15 +38,14 @@ var make_sms_dialog = function(frm, printed) {
 		title: 'Send SMS',
 		width: 400,
 		fields: [
-			{fieldname:'sms_type', fieldtype:'Select', label:'Type', options:
-			['Printed']},
+			{fieldname:'sms_type', fieldtype:'Read Only', label:'Type', Default:
+			'Printed', hidden:1},
 			{fieldname:'number', fieldtype:'Data', label:'Mobile Number', reqd:1},
 			{fieldname:'messages_label', fieldtype:'HTML'},
 			{fieldname:'messages', fieldtype:'HTML'}
 		],
 		primary_action_label: __("Send"),
 		primary_action : function(){
-			debugger;
 			var values = dialog.fields_dict;
 			if(!values){
 				return;
@@ -74,6 +73,7 @@ var make_sms_dialog = function(frm, printed) {
 
 var send_sms = function(v,frm){
 	var doc = frm.doc;
+	debugger
 	var number = v.number.last_value;
 	var messages = v.messages.wrapper.innerText;
 	frappe.call({

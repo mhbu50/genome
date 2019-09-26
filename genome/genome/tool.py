@@ -74,7 +74,7 @@ def get_html_data(doctype, name):
 def save_and_attach(content, to_name):
     from frappe.utils.file_manager import save_file_on_filesystem
     file_name = "{}.html".format(to_name.replace(" ", "-").replace("/", "-")) 
-    print " to_name = {} ".format(to_name)   
+    # print " to_name = {} ".format(to_name)   
     save_file_on_filesystem(file_name, content, None, is_private=0)  
     upload_dropbox("{}".format(file_name),True)  
 
