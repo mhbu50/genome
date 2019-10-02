@@ -3,7 +3,8 @@ frappe.ui.form.on('Lab Test', {
 	refresh :  function(frm){
 	
 		if(frm.doc.docstatus==1 && frm.doc.sms_sent==0){
-			frm.add_custom_button(__('Send SMS 2'), function() {
+			$("[data-label='Send%20SMS']").hide();
+			frm.add_custom_button(__('Send SMS '), function() {
 				frappe.call({
 					method: "genome.genome.tool.add_pdf",
                     args: {
