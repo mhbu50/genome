@@ -109,7 +109,7 @@ def check_file(file_name):
         # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
         dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAHjPweFUEWnktCUbiAuh94YB0IogW9P8zsYThEVotahme') #genome
         # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name))#mhbu50
-        print dbx.files_get_metadata('/Apps/KISSr/genome.kissr.com/{}'.format(file_name)) #genome
+        #print dbx.files_get_metadata('/Apps/KISSr/genome.kissr.com/{}'.format(file_name)) #genome
     except ApiError as err:
                 if err.user_message_text:
                     print(err.user_message_text)
