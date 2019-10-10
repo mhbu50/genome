@@ -17,7 +17,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-DROPBOX_TARGET = "/Apps/KISSr/mhbu50.kissr.com"
+DROPBOX_TARGET = frappe.db.get_single_value("Healthcare Settings", "dropbox_target")
 
 def after_insert_patient(doc, method):
     doc.hash_id = frappe.generate_hash(length=12)
@@ -35,6 +35,7 @@ def execute(doc):
     lab_test_doc = frappe.get_doc("Lab Test", doc)
     lab_test_doc.envelope_id = envelop_name
     lab_test_doc.save()
+    
 
     if not frappe.db:
         frappe.connect()
@@ -51,7 +52,7 @@ def execute(doc):
 
         dropbox_settings['access_token'] = access_token['oauth2_token']
         set_dropbox_access_token(access_token['oauth2_token'])
-
+    print"\n lab_test_doc.envelope_id = {}".format(lab_test_doc.envelope_id)
     dropbox_client = dropbox.Dropbox(dropbox_settings['access_token'])
     # print "befor upload"
     upload_file_to_dropbox(get_file_path(
@@ -67,7 +68,6 @@ def execute(doc):
 
     disease_doc = frappe.get_doc("Diseases", lab_test_doc.disease)
     html_data2 = frappe.render_template("templates/shareable_file1.html",
-<<<<<<< HEAD
                                         {"disease": disease_doc.name,
                                          "disease_story": disease_doc.description,
                                          "html_pattern": disease_doc.html_pattern,
@@ -81,25 +81,6 @@ def execute(doc):
     # print("envelop_name = {}".format(envelop_name))
     # print("shareable_file_name = {}".format(shareable_file_name))
 
-=======
-			{"disease": disease_doc.name,
-             "disease_story": disease_doc.description,
-             "html_pattern": disease_doc.html_pattern,
-             "hash_id": lab_test_doc.hash_id})
-    
-    save_and_attach(html_data2, shareable_file_name)
-    # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-    dbx = dropbox.Dropbox('hUfqL9zUywAAAAAAAAAGyMouh50BJhZfAtMFSGFxr3sT3dLH60Vfl5tZMjTjX8ej') #genome
-    # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.lab_test_result_file[7:]))
-    # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.arabic_result_file[7:]))
-    print("envelop_name = {}".format(envelop_name))
-    print("shareable_file_name = {}".format(shareable_file_name))
-    time.sleep(5)
-    check_file(lab_test_doc.lab_test_result_file[7:])
-    check_file(lab_test_doc.arabic_result_file[7:])
-    check_file("{}.html".format(envelop_name))
-    check_file("{}.html".format(shareable_file_name))
->>>>>>> 71a2438ced67210353dae44be1649e984aceebd1
     return "uploaded"
 
 
@@ -111,7 +92,6 @@ def get_html_data(doctype, name):
 
 def save_generated_file(content, to_name):
     from frappe.utils.file_manager import save_file_on_filesystem
-<<<<<<< HEAD
     file_name = "{}.html".format(to_name.replace(" ", "-").replace("/", "-"))
     # print " to_name = {} ".format(to_name)
     save_file_on_filesystem(file_name, content, None, is_private=0)
@@ -120,48 +100,3 @@ def save_generated_file(content, to_name):
 
 def get_file_path(file_name):
     return '{}/{}'.format(frappe.get_site_path("public", "files"), file_name)
-=======
-    file_name = "{}.html".format(to_name.replace(" ", "-").replace("/", "-")) 
-    # print " to_name = {} ".format(to_name)   
-    save_file_on_filesystem(file_name, content, None, is_private=0)  
-    upload_dropbox("{}".format(file_name),True)  
-
-def upload_dropbox(file_name,for_delete=False):
-    # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-    dbx = dropbox.Dropbox('hUfqL9zUywAAAAAAAAAGyMouh50BJhZfAtMFSGFxr3sT3dLH60Vfl5tZMjTjX8ej') #genome
-    LOCALFILE = '{}/{}'.format(frappe.get_site_path("public", "files"),file_name) #local path 
-    # BACKUPPATH = '/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name) #mhbu50
-    BACKUPPATH = '/Apps/KISSr/genome.kissr.com/{}'.format(file_name) #genome
-
-    with open(LOCALFILE, 'rb') as f:
-            print("Uploading " + LOCALFILE + " to Dropbox as " + BACKUPPATH + "...")
-            try:
-                dbx.files_upload(f.read(), BACKUPPATH, mode=WriteMode('overwrite'))
-                if for_delete == True:
-                    print("\n\n\n in for_delete")
-                    delete_file(LOCALFILE)
-                # for entry in dbx.files_list_folder('/Apps/KISSr/mhbu50.kissr.com').entries: #mhbu50
-                for entry in dbx.files_list_folder('/Apps/KISSr/genome.kissr.com').entries: #genome
-                    print(entry.name)
-            except ApiError as err:
-                if err.user_message_text:
-                    print(err.user_message_text)
-                    sys.exit()
-                else:
-                    print(err)
-                    sys.exit()
-
-def check_file(file_name):
-    try:
-        # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-        dbx = dropbox.Dropbox('hUfqL9zUywAAAAAAAAAGyMouh50BJhZfAtMFSGFxr3sT3dLH60Vfl5tZMjTjX8ej') #genome
-        # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name))#mhbu50
-        print dbx.files_get_metadata('/Apps/KISSr/genome.kissr.com/{}'.format(file_name)) #genome
-    except ApiError as err:
-                if err.user_message_text:
-                    print(err.user_message_text)
-                    sys.exit()
-                else:
-                    print(err)
-                    sys.exit()
->>>>>>> 71a2438ced67210353dae44be1649e984aceebd1
