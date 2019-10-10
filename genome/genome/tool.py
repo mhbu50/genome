@@ -53,8 +53,8 @@ def execute(doc):
              "hash_id": lab_test_doc.hash_id})
     
     save_and_attach(html_data2, shareable_file_name)
-    dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-    # dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAHjPweFUEWnktCUbiAuh94YB0IogW9P8zsYThEVotahme') #genome
+    # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
+    dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAItaGR9ScSxYRXDMGHFrBOiT_fIowoDqVof4agbhRsC90') #genome
     # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.lab_test_result_file[7:]))
     # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(lab_test_doc.arabic_result_file[7:]))
     print("envelop_name = {}".format(envelop_name))
@@ -80,11 +80,11 @@ def save_and_attach(content, to_name):
     upload_dropbox("{}".format(file_name),True)  
 
 def upload_dropbox(file_name,for_delete=False):
-    dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-    # dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAHjPweFUEWnktCUbiAuh94YB0IogW9P8zsYThEVotahme') #genome
+    # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
+    dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAItaGR9ScSxYRXDMGHFrBOiT_fIowoDqVof4agbhRsC90') #genome
     LOCALFILE = '{}/{}'.format(frappe.get_site_path("public", "files"),file_name) #local path 
-    BACKUPPATH = '/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name) #mhbu50
-    # BACKUPPATH = '/Apps/KISSr/genome.kissr.com/{}'.format(file_name) #genome
+    # BACKUPPATH = '/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name) #mhbu50
+    BACKUPPATH = '/Apps/KISSr/genome.kissr.com/{}'.format(file_name) #genome
 
     with open(LOCALFILE, 'rb') as f:
             print("Uploading " + LOCALFILE + " to Dropbox as " + BACKUPPATH + "...")
@@ -93,8 +93,8 @@ def upload_dropbox(file_name,for_delete=False):
                 if for_delete == True:
                     print("\n\n\n in for_delete")
                     delete_file(LOCALFILE)
-                for entry in dbx.files_list_folder('/Apps/KISSr/mhbu50.kissr.com').entries: #mhbu50
-                # for entry in dbx.files_list_folder('/Apps/KISSr/genome.kissr.com').entries: #genome
+                # for entry in dbx.files_list_folder('/Apps/KISSr/mhbu50.kissr.com').entries: #mhbu50
+                for entry in dbx.files_list_folder('/Apps/KISSr/genome.kissr.com').entries: #genome
                     print(entry.name)
             except ApiError as err:
                 if err.user_message_text:
@@ -106,10 +106,10 @@ def upload_dropbox(file_name,for_delete=False):
 
 def check_file(file_name):
     try:
-        dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
-        # dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAHjPweFUEWnktCUbiAuh94YB0IogW9P8zsYThEVotahme') #genome
+        # dbx = dropbox.Dropbox('3BJH_abhbXwAAAAAAAAeyh1LxMm9JRn2FN6TmcaWKxeVJnOJNzLJpiYGShEUKr3M') #mhbu50
+        dbx = dropbox.Dropbox('6Eub3boRuXAAAAAAAAAAItaGR9ScSxYRXDMGHFrBOiT_fIowoDqVof4agbhRsC90') #genome
         # print dbx.files_get_metadata('/Apps/KISSr/mhbu50.kissr.com/{}'.format(file_name))#mhbu50
-        #print dbx.files_get_metadata('/Apps/KISSr/genome.kissr.com/{}'.format(file_name)) #genome
+        print dbx.files_get_metadata('/Apps/KISSr/genome.kissr.com/{}'.format(file_name)) #genome
     except ApiError as err:
                 if err.user_message_text:
                     print(err.user_message_text)
