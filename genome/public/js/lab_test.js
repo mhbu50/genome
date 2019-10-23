@@ -2,7 +2,7 @@
 frappe.ui.form.on('Lab Test', {
 	refresh :  function(frm){
 	
-		if(frm.doc.docstatus==1 && frm.doc.sms_sent==0){
+		if(frm.doc.docstatus == 1 ){
 			$("[data-label='Send%20SMS']").hide();
 			frm.add_custom_button(__('Send SMS '), function() {
 				frappe.call({
@@ -35,6 +35,9 @@ frappe.ui.form.on('Lab Test', {
 var make_sms_dialog = function(frm, printed) {
 	var number = frm.doc.mobile;
 	debugger;
+	if(frm.doc.sms_sent == 1){
+		frappe.msgprint(__('Messages is already sent!'));
+	}
 	var dialog = new frappe.ui.Dialog({
 		title: 'Send SMS',
 		width: 400,
