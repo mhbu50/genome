@@ -1,7 +1,6 @@
 
 frappe.ui.form.on('Lab Test', {
-	refresh :  function(frm){
-	
+	refresh :  function(frm){	
 		if(frm.doc.docstatus == 1 ){
 			$("[data-label='Send%20SMS']").hide();
 			frm.add_custom_button(__('Send SMS '), function() {
@@ -12,29 +11,29 @@ frappe.ui.form.on('Lab Test', {
 					}
 				}).then((result) => {
 					console.log("result",result);
-					
-					frappe.call({
-						method: "erpnext.healthcare.doctype.healthcare_settings.healthcare_settings.get_sms_text",
-						args:{doc: frm.doc.name},
-						callback: function(r) {
-							if(!r.exc) {
-								var printed = r.message.printed;
-								make_sms_dialog(frm, printed);
+					frappe.run_serially([						
+						() => frm.set_value("envelope_id",result.message),
+						() => frappe.click_button('Update'),,
+						() => frappe.call({
+							method: "erpnext.healthcare.doctype.healthcare_settings.healthcare_settings.get_sms_text",
+							args:{doc: frm.doc.name},
+							callback: function(r) {
+								if(!r.exc) {
+									var printed = r.message.printed;
+									make_sms_dialog(frm, printed);
+								}
 							}
-						}
-					});
-				})
-
-				
+						})
+					]);																			
+				})				
 			});
 		}
-
 	}
 });
 
 var make_sms_dialog = function(frm, printed) {
 	var number = frm.doc.mobile;
-	debugger;
+	// debugger;
 	if(frm.doc.sms_sent == 1){
 		frappe.msgprint(__('Messages is already sent!'));
 	}
