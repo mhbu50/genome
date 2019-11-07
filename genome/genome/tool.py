@@ -14,7 +14,8 @@ from frappe.utils.file_manager import delete_file, get_file, get_files_path
 from frappe.integrations.doctype.dropbox_settings.dropbox_settings import upload_file_to_dropbox, get_dropbox_settings, generate_oauth2_access_token_from_oauth1_token, set_dropbox_access_token
 
 import sys
-reload(sys)
+import importlib
+importlib.reload(sys)
 sys.setdefaultencoding('utf8')
 
 DROPBOX_TARGET = frappe.db.get_single_value("Healthcare Settings", "dropbox_target")
