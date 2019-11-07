@@ -14,14 +14,6 @@ from datetime import datetime, timedelta
 from frappe.utils.pdf import get_pdf
 from frappe.utils.file_manager import delete_file, get_file, get_files_path
 
-
-import sys
-import importlib
-importlib.reload(sys)
-sys.setdefaultencoding('utf8')
-
-DROPBOX_TARGET = frappe.db.get_single_value("Healthcare Settings", "dropbox_target")
-
 def after_insert_patient(doc, method):
     doc.hash_id = frappe.generate_hash(length=12)
     doc.save()
