@@ -35,14 +35,14 @@ def add_pdf(doc):
         lab_test_doc.lab_test_result_file[7:])
     print ("\nfilename 1= {} \n ".format(filename))
     file = open(filename, 'rb')
-    ftp.storbinary('STOR '+lab_test_doc.lab_test_result_file[7:].encode('utf-8'), file)
+    ftp.storbinary('STOR '+lab_test_doc.lab_test_result_file[7:].decode('utf-8'), file)
     file.close()
     #upload arabic_result
     filename = get_file_path(
         lab_test_doc.arabic_result_file[7:])
     print ("\nfilename 2= {} \n ".format(filename))
     file = open(filename, 'rb')
-    ftp.storbinary('STOR '+lab_test_doc.arabic_result_file[7:].encode('utf-8'), file)
+    ftp.storbinary('STOR '+lab_test_doc.arabic_result_file[7:].decode('utf-8'), file)
     file.close()
     #upload envlop_file
     html_data1 = frappe.render_template("templates/envlop.html",
