@@ -21,8 +21,6 @@ def after_insert_patient(doc, method):
 
 @frappe.whitelist()
 def add_pdf(doc):
-    
-
     envlop_file_name = frappe.generate_hash(length=12)
     shareable_file_name = frappe.generate_hash(length=12)
     lab_test_doc = frappe.get_doc("Lab Test", doc)
