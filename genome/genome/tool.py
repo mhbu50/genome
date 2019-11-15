@@ -9,6 +9,7 @@ from ftplib import FTP
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import flt, today, getdate, add_years, time_diff, get_datetime_str
+from frappe.utils.html_utils import clean_html
 from frappe.model.document import Document
 from datetime import datetime, timedelta
 from frappe.utils.pdf import get_pdf
@@ -44,7 +45,7 @@ def add_pdf(doc):
     file.close()
     #upload envlop_file
     html_data1 = frappe.render_template("templates/envlop.html",
-                                        {"patient_name": lab_test_doc.arabic_first_name, "disease": lab_test_doc.disease_description, "file1": lab_test_doc.lab_test_result_file[7:], "file2": lab_test_doc.arabic_result_file[7:],
+                                        {"patient_name": lab_test_doc.arabic_first_name, "disease": clean_html(lab_test_doc.disease_description), "file1": lab_test_doc.lab_test_result_file[7:], "file2": lab_test_doc.arabic_result_file[7:],
                                         "shareable_file_name": shareable_file_name, "hash_id": lab_test_doc.hash_id})
     envlop_file = save_generated_file(html_data1, envlop_file_name)
     filename = get_file_path(envlop_file)
