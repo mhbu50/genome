@@ -41,6 +41,7 @@ def add_pdf(doc):
     ftp.storbinary('STOR '+lab_test_doc.arabic_result_file[7:].encode('utf-8').decode('utf-8'), file)
     file.close()
     #upload envlop_file
+    frappe.msgprint(clean_html(lab_test_doc.disease_description))
     html_data1 = frappe.render_template("templates/envlop.html",
                                         {"patient_name": lab_test_doc.arabic_first_name, "disease": clean_html(lab_test_doc.disease_description), "file1": lab_test_doc.lab_test_result_file[7:], "file2": lab_test_doc.arabic_result_file[7:],
                                         "shareable_file_name": shareable_file_name, "hash_id": lab_test_doc.hash_id})
