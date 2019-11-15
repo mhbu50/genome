@@ -19,7 +19,6 @@ def after_insert_patient(doc, method):
     doc.hash_id = frappe.generate_hash(length=12)
     doc.save()
 
-
 @frappe.whitelist()
 def add_pdf(doc):
     envlop_file_name = frappe.generate_hash(length=12)
@@ -30,16 +29,14 @@ def add_pdf(doc):
     ftp.login(user='envelope@saudigenome.net', passwd = '216408Mm')
     print (ftp.getwelcome())
     #upload test_result
-    filename = get_file_path(
-        lab_test_doc.lab_test_result_file[7:])
-    print ("\nfilename 1= {} \n ".format(filename))
+    filename = get_file_path(lab_test_doc.lab_test_result_file[7:])
+    # print ("\nfilename 1= {} \n ".format(filename))
     file = open(filename, 'rb')
     ftp.storbinary('STOR '+lab_test_doc.lab_test_result_file[7:].encode('utf-8').decode('utf-8'), file)
     file.close()
     #upload arabic_result
-    filename = get_file_path(
-        lab_test_doc.arabic_result_file[7:])
-    print ("\nfilename 2= {} \n ".format(filename))
+    filename = get_file_path(lab_test_doc.arabic_result_file[7:])
+    # print ("\nfilename 2= {} \n ".format(filename))
     file = open(filename, 'rb')
     ftp.storbinary('STOR '+lab_test_doc.arabic_result_file[7:].encode('utf-8').decode('utf-8'), file)
     file.close()
@@ -49,7 +46,7 @@ def add_pdf(doc):
                                         "shareable_file_name": shareable_file_name, "hash_id": lab_test_doc.hash_id})
     envlop_file = save_generated_file(html_data1, envlop_file_name)
     filename = get_file_path(envlop_file)
-    print ("\n envlop_file = {} filename 3= {} \n ".format(envlop_file,filename))
+    # print ("\n envlop_file = {} filename 3= {} \n ".format(envlop_file,filename))
     file = open(filename, 'rb')
     ftp.storbinary('STOR '+envlop_file, file)
     file.close()
@@ -67,7 +64,7 @@ def add_pdf(doc):
     ftp.storbinary('STOR '+shareable_file, file)
     file.close()
     ftp.quit()
-    print ("\nuploaded \n")
+    # print ("\nuploaded \n")
     return envlop_file_name
 
 
