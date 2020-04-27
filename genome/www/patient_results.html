@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#7575ff">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#7575ff">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#7575ff">
+    <meta charset="utf-8">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+		maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Frappe Desk</title>
+    <link rel="shortcut icon" href="{{ favicon or "/assets/frappe/images/favicon.png" }}" type="image/x-icon">
+    <link rel="icon" href="{{ favicon or "/assets/frappe/images/favicon.png" }}" type="image/x-icon">
+    {% for include in include_css -%}
+    <link type="text/css" rel="stylesheet" href="{{ include }}?ver={{ build_version }}">
+    {%- endfor -%}
+</head>
+
+<body>
+
+    <div class="print-format"></div>
+
+
+
+    <script type="text/javascript" src="/assets/frappe/js/lib/jquery/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function wait(ms) {
+            var d = new Date();
+            var d2 = null;
+            do { d2 = new Date(); }
+            while (d2 - d < ms);
+        }
+
+        window._version_number = "{{ build_version }}";
+        // browser support
+        window.app = true;
+        window.dev_server = {{ dev_server }};
+
+        if (!window.frappe) window.frappe = {};
+
+        frappe.boot = {{ boot }};
+
+        frappe.csrf_token = "{{ csrf_token }}";
+
+        $(window).load(function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            var doctype = urlParams.get('doctype');
+            var docname = urlParams.get('docname');
+            var print_format = urlParams.get('print_format');
+            var hashid = urlParams.get('hashid');
+            var doc = {};
+
+            frappe.run_serially([
+			() =>  frappe.call({
+                method: "frappe.client.get",
+                args: {
+                    doctype: doctype,
+                    name: docname
+                },               
+                callback: function (data) {
+                    doc = data.message;
+                }
+            }),
+			() => frappe.call({
+                method: "frappe.www.printview.get_html_and_style",
+                args: {
+                    doc: doc,
+                    print_format: print_format,
+                    no_letterhead: 1,
+                    _lang: "en",
+                },
+                callback: function (r) {
+                    if (!r.exc) {
+                        console.log("qqqqqqqq");
+                        $(".print-format").html(r.message.html);
+                        frappe.dom.set_style(r.message.style, "print-style");
+                    }
+                }
+            }),
+			() =>  frappe.call({
+                method: "frappe.client.get",
+                args: {
+                    doctype: "Print Format",
+                    name: print_format
+                },
+                callback: function (data) {
+                    console.log("fffffff");
+                    eval(data.message.custom_js.replace(/(\r\n|\n|\r)/gm, ""));
+                    console.log(data.message.custom_js.replace(/(\r\n|\n|\r)/gm, ""));
+                }
+            })
+        ]);
+        
+           
+
+            
+             
+           
+        });
+    </script>
+
+    {% for include in include_js %}
+    <script type="text/javascript" src="{{ include }}?ver={{ build_version }}"></script>
+    {% endfor %}
+    {% include "templates/includes/app_analytics/google_analytics.html" %}
+    {% include "templates/includes/app_analytics/mixpanel_analytics.html" %}
+
+
+</body>
