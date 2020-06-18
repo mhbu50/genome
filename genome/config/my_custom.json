@@ -159,5 +159,15 @@
       "apps": "genome",
       "options": "Family Group"
     }
+  ],
+  "Supplier": [
+    {
+      "label": "Supplier Name in Arabic",
+      "fieldname": "supplier_name_in_arabic",
+      "fieldtype": "Data",
+      "insert_after": "supplier_name",
+      "apps": "genome",
+      "translatable": 1
+    }
   ]
 }
