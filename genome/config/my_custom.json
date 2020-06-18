@@ -110,5 +110,44 @@
       "options": "Sample Scheduled\nConsent Provided\nSample Deposited\nSample Shipped\nResult Received\nEnvelope Sent",
       "apps": "genome"
     }
+  ],
+  "Patient": [
+    {
+      "fieldtype": "Data",
+      "reqd": 1,
+      "label": "Arabic First Name",
+      "fieldname": "arabic_first_name",
+      "insert_after": "customer",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "reqd": 1,
+      "label": "Arabic Full Name",
+      "fieldname": "arabic_full_name",
+      "insert_after": "patient_name",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "label": "Hash ID",
+      "fieldname": "hash_id",
+      "insert_after": "status",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "label": "National ID",
+      "fieldname": "national_id",
+      "insert_after": "dob",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "label": "Referral Code",
+      "fieldname": "referral_code",
+      "insert_after": "phone",
+      "apps": "genome"
+    }
   ]
 }
