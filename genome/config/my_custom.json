@@ -149,5 +149,15 @@
       "insert_after": "phone",
       "apps": "genome"
     }
+  ],
+  "Patient Relation": [
+    {
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Family Group",
+      "fieldname": "family_group",
+      "apps": "genome",
+      "options": "Family Group"
+    }
   ]
 }
