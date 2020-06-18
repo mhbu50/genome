@@ -1,0 +1,114 @@
+{
+  "Lab Test": [
+    {
+      "fieldtype": "Data",
+      "translatable": 1,
+      "label": "Arabic First Name",
+      "fieldname": "arabic_first_name",
+      "insert_after": "patient_name",
+      "fetch_from": "patient.arabic_first_name",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Attach",
+      "allow_on_submit": 1,
+      "label": "Arabic Result File",
+      "fieldname": "arabic_result_file",
+      "insert_after": "lab_test_result_file",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Text",
+      "label": "Collection Details",
+      "fieldname": "collection_details",
+      "insert_after": "template",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "label": "Collection Location",
+      "fieldname": "collection_location",
+      "insert_after": "provider_sample_collection",
+      "fetch_from": "provider_sample_collection.google_map",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "read_only": 1,
+      "hidden": 1,
+      "allow_on_submit": 1,
+      "fieldname": "envelope_id",
+      "label": "Envelope ID",
+      "insert_after": "arabic_result_file",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "read_only": 1,
+      "translatable": 1,
+      "label": "Hash ID",
+      "fieldname": "hash_id",
+      "fetch_from": "patient.hash_id",
+      "apps": "genome",
+      "insert_after": "arabic_first_name"
+    },
+    {
+      "fieldtype": "Link",
+      "label": "Lab Test Disease",
+      "fieldname": "lab_test_disease",
+      "insert_after": "custom_result",
+      "options": "Lab test Disease",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Attach",
+      "allow_on_submit": 1,
+      "label": "Lab Test Result File",
+      "fieldname": "lab_test_result_file",
+      "insert_after": "lab_test_disease",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Read Only",
+      "label": "National ID",
+      "fieldname": "national_id",
+      "insert_after": "hash_id",
+      "fetch_from": "patient.national_id",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Attach Image",
+      "hidden": 1,
+      "fieldname": "national_id_scan",
+      "label": "National ID Scan",
+      "options": "patient.national_id_scan",
+      "fetch_from": "patient.national_id_scan",
+      "insert_after": "national_id",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Link",
+      "label": "Provider Category Lab",
+      "fieldname": "provider_category_lab",
+      "insert_after": "lab_test_name",
+      "options": "Supplier",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Link",
+      "label": "Provider Sample Collection",
+      "fieldname": "provider_sample_collection",
+      "insert_after": "collection_details",
+      "options": "Supplier",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Select",
+      "label": "Stage",
+      "fieldname": "stage",
+      "insert_after": "status",
+      "options": "Sample Scheduled\nConsent Provided\nSample Deposited\nSample Shipped\nResult Received\nEnvelope Sent",
+      "apps": "genome"
+    }
+  ]
+}
