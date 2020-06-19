@@ -7,7 +7,8 @@
       "fieldname": "arabic_first_name",
       "insert_after": "patient_name",
       "fetch_from": "patient.arabic_first_name",
-      "apps": "genome"
+      "apps": "genome",
+      "read_only": 1
     },
     {
       "fieldtype": "Attach",
@@ -53,7 +54,7 @@
       "insert_after": "arabic_first_name"
     },
     {
-      "fieldtype": "Link",
+      "fieldtype": "Table",
       "label": "Lab Test Disease",
       "fieldname": "lab_test_disease",
       "insert_after": "custom_result",
@@ -88,7 +89,7 @@
     },
     {
       "fieldtype": "Link",
-      "label": "Provider Category Lab",
+      "label": "Reference Lab",
       "fieldname": "provider_category_lab",
       "insert_after": "lab_test_name",
       "options": "Supplier",
@@ -96,7 +97,7 @@
     },
     {
       "fieldtype": "Link",
-      "label": "Provider Sample Collection",
+      "label": "Sample Collection Agency",
       "fieldname": "provider_sample_collection",
       "insert_after": "collection_details",
       "options": "Supplier",
