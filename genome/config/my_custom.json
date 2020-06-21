@@ -88,6 +88,18 @@
       "apps": "genome"
     },
     {
+      "fieldtype": "Select",
+      "translatable": 1,
+      "label": "Payment Remarks",
+      "fieldname": "payment_remarks",
+      "apps": "genome",
+      "options": "Not Paid\nPartially Paid\nFully Paid",
+      "insert_after": "employee",
+      "default": "Not Paid",
+      "depends_on": "eval: doc.sales_invoice;",
+      "read_only": 1
+    },
+    {
       "fieldtype": "Link",
       "label": "Reference Lab",
       "fieldname": "provider_category_lab",
@@ -102,6 +114,15 @@
       "insert_after": "collection_details",
       "options": "Supplier",
       "apps": "genome"
+    },
+    {
+      "fieldtype": "Link",
+      "label": "Sales Invoice",
+      "fieldname": "sales_invoice",
+      "apps": "genome",
+      "insert_after": "employee",
+      "read_only": 1,
+      "options": "Sales Invoice"
     },
     {
       "fieldtype": "Select",
