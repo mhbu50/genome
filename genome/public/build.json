@@ -1,6 +1,5 @@
 {
     "js/genome.js": [
-      "public/js/patient.js",
-      "public/js/lab_test.js"
+      "public/html/lab_test_dashboard.html"
     ]
 }

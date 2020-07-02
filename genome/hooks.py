@@ -27,7 +27,7 @@ app_include_js = "/assets/js/genome.js"
 
 # include js in doctype views
 doctype_js = {"Patient" : "public/js/patient.js","Lab Test":"public/js/lab_test.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+# doctype_list_js = {"Lab Test" : "public/js/lab_test_finding_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -80,10 +80,15 @@ doctype_js = {"Patient" : "public/js/patient.js","Lab Test":"public/js/lab_test.
 # Hook on document methods and events
 
 doc_events = {
- 	"Patient": {
- 		"after_insert": "genome.genome.tool.after_insert_patient"
-	}
- }
+	"Patient": {
+		"after_insert": "genome.genome.tool.after_insert_patient"
+	},
+	"Lab Test": {"validate": "genome.utils.lab_test.generate_sales_invoice"},
+	"Sales Invoice": {
+        "cancel": "genome.utils.sales_invoice.unlink_lab_test",
+        "trash": "genome.utils.sales_invoice.unlink_lab_test"
+    },
+}
 
 # Scheduled Tasks
 # ---------------
