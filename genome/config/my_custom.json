@@ -54,14 +54,6 @@
       "insert_after": "arabic_first_name"
     },
     {
-      "fieldtype": "Table",
-      "label": "Lab Test Disease",
-      "fieldname": "lab_test_disease",
-      "insert_after": "custom_result",
-      "options": "Lab test Disease",
-      "apps": "genome"
-    },
-    {
       "fieldtype": "Attach",
       "allow_on_submit": 1,
       "label": "Lab Test Result File",
