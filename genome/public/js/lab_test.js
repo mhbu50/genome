@@ -60,7 +60,7 @@ frappe.ui.form.on('Lab Test', {
                     frappe.run_serially([
                         () => frappe.new_doc('Lab Test Finding'),
                         () => cur_frm.doc.patient = lab_test_patient,
-                        () => cur_frm.doc.patient = lab_test_id,
+                        () => cur_frm.doc.lab_test_id = lab_test_id,
                         () => cur_frm.refresh_fields(['patient', 'lab_test_id'])
                     ]);
                 });
