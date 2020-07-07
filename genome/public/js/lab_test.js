@@ -49,7 +49,6 @@ frappe.ui.form.on('Lab Test', {
                                 cur_list.filter_area.filter_list.clear_filters()
                             }
                         },
-                        () => cur_list.lab_test_patient = lab_test_patient,
                         () => cur_list.lab_test_id = lab_test_id,
                         () => cur_list.refresh(),
                         () => frappe.listview_settings['Lab Test Finding'].onload(cur_list)
