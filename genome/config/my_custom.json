@@ -11,14 +11,6 @@
       "read_only": 1
     },
     {
-      "fieldtype": "Attach",
-      "allow_on_submit": 1,
-      "label": "Arabic Result File",
-      "fieldname": "arabic_result_file",
-      "insert_after": "lab_test_result_file",
-      "apps": "genome"
-    },
-    {
       "fieldtype": "Text",
       "label": "Collection Details",
       "fieldname": "collection_details",
@@ -52,14 +44,6 @@
       "fetch_from": "patient.hash_id",
       "apps": "genome",
       "insert_after": "arabic_first_name"
-    },
-    {
-      "fieldtype": "Attach",
-      "allow_on_submit": 1,
-      "label": "Lab Test Result File",
-      "fieldname": "lab_test_result_file",
-      "insert_after": "lab_test_disease",
-      "apps": "genome"
     },
     {
       "fieldtype": "Read Only",
@@ -97,7 +81,8 @@
       "fieldname": "provider_category_lab",
       "insert_after": "lab_test_name",
       "options": "Supplier",
-      "apps": "genome"
+      "apps": "genome",
+      "description": "Category of provider is xyz"
     },
     {
       "fieldtype": "Link",
@@ -105,7 +90,8 @@
       "fieldname": "provider_sample_collection",
       "insert_after": "collection_details",
       "options": "Supplier",
-      "apps": "genome"
+      "apps": "genome",
+      "description": "Category of provider is xyz"
     },
     {
       "fieldtype": "Link",
