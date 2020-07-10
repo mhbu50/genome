@@ -162,6 +162,12 @@
   ],
   "Supplier": [
     {
+      "fieldtype": "Long Text",
+      "label": "Google Map",
+      "fieldname": "google_map",
+      "apps": "genome"
+    },
+    {
       "label": "Supplier Name in Arabic",
       "fieldname": "supplier_name_in_arabic",
       "fieldtype": "Data",
