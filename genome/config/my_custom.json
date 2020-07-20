@@ -33,7 +33,8 @@
       "fieldname": "envelope_id",
       "label": "Envelope ID",
       "insert_after": "arabic_result_file",
-      "apps": "genome"
+      "apps": "genome",
+      "translatable": 1
     },
     {
       "fieldtype": "Data",
@@ -46,11 +47,16 @@
       "insert_after": "arabic_first_name"
     },
     {
+      "fieldtype": "Section Break",
+      "insert_after": "collection_location",
+      "fieldname": "into_conclusion_section_break",
+      "apps": "genome"
+    },
+    {
       "fieldtype": "Read Only",
       "label": "National ID",
       "fieldname": "national_id",
       "insert_after": "hash_id",
-      "fetch_from": "patient.national_id",
       "apps": "genome"
     },
     {
@@ -58,8 +64,6 @@
       "hidden": 1,
       "fieldname": "national_id_scan",
       "label": "National ID Scan",
-      "options": "patient.national_id_scan",
-      "fetch_from": "patient.national_id_scan",
       "insert_after": "national_id",
       "apps": "genome"
     },
@@ -82,7 +86,7 @@
       "insert_after": "lab_test_name",
       "options": "Supplier",
       "apps": "genome",
-      "description": "Category of provider is xyz"
+      "description": "Category of provider is Reference Lab"
     },
     {
       "fieldtype": "Link",
@@ -91,7 +95,23 @@
       "insert_after": "collection_details",
       "options": "Supplier",
       "apps": "genome",
-      "description": "Category of provider is xyz"
+      "description": "Category of provider is Collection Agency"
+    },
+    {
+      "fieldtype": "Text",
+      "translatable": 1,
+      "label": "Result Conclusion",
+      "fieldname": "result_conclusion",
+      "insert_after": "result_introduction",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Text",
+      "translatable": 1,
+      "insert_after": "into_conclusion_section_break",
+      "label": "Result Introduction",
+      "fieldname": "result_introduction",
+      "apps": "genome"
     },
     {
       "fieldtype": "Link",
