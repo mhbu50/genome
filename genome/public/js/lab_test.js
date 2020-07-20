@@ -1,34 +1,22 @@
 
 frappe.ui.form.on('Lab Test', {
-	refresh :  function(frm){	
-		// if(frm.doc.docstatus == 1 ){
-		// 	$("[data-label='Send%20SMS']").hide();
-		// 	frm.add_custom_button(__('Send SMS '), function() {
-		// 		frappe.call({
-		// 			method: "genome.genome.tool.add_pdf",
-        //             args: {
-		// 				doc: frm.doc.name
-		// 			}
-		// 		}).then((result) => {
-		// 			console.log("result",result);
-		// 			frappe.run_serially([						
-		// 				() => frm.set_value("envelope_id",result.message),
-		// 				() => frappe.click_button('Update'),,
-		// 				() => frappe.call({
-		// 					method: "erpnext.healthcare.doctype.healthcare_settings.healthcare_settings.get_sms_text",
-		// 					args:{doc: frm.doc.name},
-		// 					callback: function(r) {
-		// 						if(!r.exc) {
-		// 							var printed = r.message.printed;
-		// 							make_sms_dialog(frm, printed);
-		// 						}
-		// 					}
-		// 				})
-		// 			]);																			
-		// 		})				
-		// 	});
-		// }
-
+    onload: function (frm) {  
+        frm.set_query('provider_category_lab', () =>{
+            return {
+                filters: {
+                    supplier_group: 'Reference Lab'
+                }
+            }
+        })
+        frm.set_query('provider_sample_collection', () =>{
+            return {
+                filters: {
+                    supplier_group: 'Collection Agency'
+                }
+            }
+        })
+    },
+	refresh :  function(frm){
 		if (!frm.is_new()){
             frm.add_custom_button('Send Message', () => {
 				frm.trigger("show_send_media_dialog");
