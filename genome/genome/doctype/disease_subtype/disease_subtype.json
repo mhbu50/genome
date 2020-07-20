@@ -4,6 +4,7 @@
  "allow_guest_to_view": 0,
  "allow_import": 0,
  "allow_rename": 0,
+ "autoname": "field:disease_subtype",
  "beta": 0,
  "creation": "2020-07-01 14:42:54.691750",
  "custom": 0,
@@ -78,7 +79,7 @@
    "search_index": 0,
    "set_only_once": 0,
    "translatable": 0,
-   "unique": 0
+   "unique": 1
   }
  ],
  "has_web_view": 0,
@@ -91,7 +92,7 @@
  "issingle": 0,
  "istable": 0,
  "max_attachments": 0,
- "modified": "2020-07-01 14:42:56.824388",
+ "modified": "2020-07-20 21:05:16.098126",
  "modified_by": "Administrator",
  "module": "Genome",
  "name": "Disease Subtype",
@@ -124,6 +125,7 @@
  "show_name_in_global_search": 0,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "disease_subtype",
  "track_changes": 1,
  "track_seen": 0,
  "track_views": 0
