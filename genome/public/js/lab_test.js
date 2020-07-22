@@ -103,7 +103,6 @@ frappe.ui.form.on('Lab Test', {
                 fields: new_fields,
                 primary_action: function (e) {
                     var v = cur_frm.doc.d.get_values();
-                    console.log(v);
                 },
                 primary_action_label: __('Send')
             })
@@ -135,7 +134,6 @@ frappe.ui.form.on('Lab Test', {
                 document_type: cur_frm.doctype
             }
         }).then( records =>{
-            console.log(records);
             if (records.length > 0){
                 var token = records[0].token;
                 frappe.db.get_doc('SMS Template', args.template).then(doc => {
