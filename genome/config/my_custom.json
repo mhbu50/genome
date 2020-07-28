@@ -37,6 +37,24 @@
       "translatable": 1
     },
     {
+      "fieldtype": "Link",
+      "label": "Genetic Counselor",
+      "fieldname": "genetic_counselor",
+      "apps": "genome",
+      "options": "Employee",
+      "insert_after": "result_date"
+    },
+    {
+      "fieldtype": "Data",
+      "read_only": 1,
+      "translatable": 1,
+      "label": "Genetic Counselor Name",
+      "fieldname": "genetic_counselor_name",
+      "apps": "genome",
+      "fetch_from": "genetic_counselor.employee_name",
+      "insert_after": "genetic_counselor"
+    },
+    {
       "fieldtype": "Data",
       "read_only": 1,
       "translatable": 1,
@@ -48,9 +66,19 @@
     },
     {
       "fieldtype": "Section Break",
-      "insert_after": "collection_location",
+      "insert_after": "collection_details",
       "fieldname": "into_conclusion_section_break",
       "apps": "genome"
+    },
+    {
+      "fieldtype": "Small Text",
+      "read_only": 1,
+      "translatable": 1,
+      "label": "Test Description",
+      "fieldname": "lab_test_description",
+      "fetch_from": "template.lab_test_description",
+      "apps": "genome",
+      "insert_after": "lab_test_name"
     },
     {
       "fieldtype": "Read Only",
@@ -74,7 +102,7 @@
       "fieldname": "payment_remarks",
       "apps": "genome",
       "options": "Not Paid\nPartially Paid\nFully Paid",
-      "insert_after": "employee",
+      "insert_after": "sales_invoice",
       "default": "Not Paid",
       "depends_on": "eval: doc.sales_invoice;",
       "read_only": 1
@@ -83,7 +111,7 @@
       "fieldtype": "Link",
       "label": "Reference Lab",
       "fieldname": "provider_category_lab",
-      "insert_after": "lab_test_name",
+      "insert_after": "lab_test_description",
       "options": "Supplier",
       "apps": "genome",
       "description": "Category of provider is Reference Lab"
@@ -92,10 +120,17 @@
       "fieldtype": "Link",
       "label": "Sample Collection Agency",
       "fieldname": "provider_sample_collection",
-      "insert_after": "collection_details",
+      "insert_after": "provider_category_lab",
       "options": "Supplier",
       "apps": "genome",
       "description": "Category of provider is Collection Agency"
+    },
+    {
+      "fieldtype": "Attach",
+      "label": "Recommendation Document",
+      "fieldname": "recommendation_document",
+      "insert_after": "result_conclusion",
+      "apps": "genome"
     },
     {
       "fieldtype": "Text",
@@ -118,7 +153,7 @@
       "label": "Sales Invoice",
       "fieldname": "sales_invoice",
       "apps": "genome",
-      "insert_after": "employee",
+      "insert_after": "employee_name",
       "read_only": 1,
       "options": "Sales Invoice"
     },
@@ -128,7 +163,9 @@
       "fieldname": "stage",
       "insert_after": "status",
       "options": "Sample Scheduled\nConsent Provided\nSample Deposited\nSample Shipped\nResult Received\nEnvelope Sent",
-      "apps": "genome"
+      "apps": "genome",
+      "allow_on_submit": 1,
+      "translatable": 1
     }
   ],
   "Patient": [
@@ -194,6 +231,24 @@
       "insert_after": "supplier_name",
       "apps": "genome",
       "translatable": 1
+    }
+  ],
+  "Diseases": [
+    {
+      "fieldtype": "Data",
+      "translatable": 1,
+      "label": "Disease Arabic Name",
+      "fieldname": "disease_arabic_name",
+      "apps": "genome",
+      "insert_after": "disease"
+    },
+    {
+      "fieldtype": "Table",
+      "label": "Diseases Sub Types",
+      "fieldname": "diseases_sub_types",
+      "apps": "genome",
+      "options": "Diseases Sub Type",
+      "insert_after": "inheritance_pattern"
     }
   ]
 }

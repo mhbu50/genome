@@ -167,6 +167,16 @@ frappe.ui.form.on('Lab Test', {
                 })
             }
         })
+    },
+    template: function (frm) {  
+        if (frm.doc.template){
+            frappe.db.get_doc('Lab Test Template', frm.doc.template)
+            .then(doc => {
+                let value = `Sample Name: ${doc.sample}\nSample UOM: ${doc.sample_uom}\nSample Qty: ${doc.sample_qty}`
+                frm.set_value('collection_details', value);
+                frm.set_value('lab_test_name', doc.lab_test_name);
+            })
+        }
     }
 });
 

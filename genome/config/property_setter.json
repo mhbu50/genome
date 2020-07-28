@@ -1,0 +1,25 @@
+{
+  "Lab Test": [
+    {
+      "doctype_or_field": "DocField",
+      "value": "Lab Specialist Name",
+      "field_name": "employee_name",
+      "property": "label",
+      "apps": "genome"
+    },
+    {
+      "doctype_or_field": "DocField",
+      "value": "1",
+      "field_name": "sb_comments",
+      "property": "hidden",
+      "apps": "genome"
+    },
+    {
+      "doctype_or_field": "DocField",
+      "value": "1",
+      "field_name": "sb_customresult",
+      "property": "hidden",
+      "apps": "genome"
+    }
+  ]
+}
