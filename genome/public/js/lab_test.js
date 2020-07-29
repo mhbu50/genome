@@ -15,44 +15,54 @@ frappe.ui.form.on('Lab Test', {
                 }
             }
         })
+        if (frm.doc.name && !frm.is_new()){
+        }
     },
 	refresh :  function(frm){
 		if (!frm.is_new()){
             frm.add_custom_button('Send Message', () => {
 				frm.trigger("show_send_media_dialog");
             })
-            frappe.call('genome.utils.lab_test.get_lab_test_finding_count',{ patient: frm.doc.patient, labtest: frm.doc.name }).then(r =>{
-                let count = r.message;
-                let html = frappe.render_template('lab_test_dashboard', {count});
-                frm.dashboard.add_section(html);
-                frm.dashboard.show();
-                var lab_test_patient = frm.doc.patient;
-                var lab_test_id = frm.doc.name;
-                $(`[data-doctype= "Lab Test Finding"] a`).click(function (e) { 
-                    e.preventDefault();
-                    frappe.run_serially([
-                        () => frappe.set_route('List', 'Lab Test Finding', 'List'),
-                        () => {
-                            if (cur_list.filter_area){
-                                cur_list.filter_area.filter_list.clear_filters()
-                            }
-                        },
-                        () => cur_list.lab_test_id = lab_test_id,
-                        () => cur_list.refresh(),
-                        () => frappe.listview_settings['Lab Test Finding'].onload(cur_list)
-                    ]);
-                });
-                $(`[data-doctype= "Lab Test Finding"] button`).click(function (e) { 
-                    e.preventDefault();
-                    frappe.run_serially([
-                        () => frappe.new_doc('Lab Test Finding'),
-                        () => cur_frm.doc.patient = lab_test_patient,
-                        () => cur_frm.doc.lab_test_id = lab_test_id,
-                        () => cur_frm.refresh_fields(['patient', 'lab_test_id'])
-                    ]);
-                });
-            })
+            if (cur_frm.doc.dashboard){
+                cur_frm.doc.dashboard.remove();
+                frm.events.render_dashboard(frm);
+            }else{
+                frm.events.render_dashboard(frm);
+            }
+            frm.dashboard.show();
         }
+    },
+    render_dashboard: function (frm) {
+        frappe.call('genome.utils.lab_test.get_lab_test_finding_count',{ patient: frm.doc.patient, labtest: frm.doc.name }).then(r =>{
+            let count = r.message;
+            let html = frappe.render_template('lab_test_dashboard', {count});
+            cur_frm.doc.dashboard = frm.dashboard.add_section(html);
+            var lab_test_patient = frm.doc.patient;
+            var lab_test_id = frm.doc.name;
+            $(`[data-doctype= "Lab Test Finding"] a`).click(function (e) { 
+                e.preventDefault();
+                frappe.run_serially([
+                    () => frappe.set_route('List', 'Lab Test Finding', 'List'),
+                    () => {
+                        if (cur_list.filter_area){
+                            cur_list.filter_area.filter_list.clear_filters()
+                        }
+                    },
+                    () => cur_list.lab_test_id = lab_test_id,
+                    () => cur_list.refresh(),
+                    () => frappe.listview_settings['Lab Test Finding'].onload(cur_list)
+                ]);
+            });
+            $(`[data-doctype= "Lab Test Finding"] button`).click(function (e) { 
+                e.preventDefault();
+                frappe.run_serially([
+                    () => frappe.new_doc('Lab Test Finding'),
+                    () => cur_frm.doc.patient = lab_test_patient,
+                    () => cur_frm.doc.lab_test_id = lab_test_id,
+                    () => cur_frm.refresh_fields(['patient', 'lab_test_id'])
+                ]);
+            });
+        })
     },
     show_send_media_dialog: function (frm) {  
         if (cur_frm.doc.d){
