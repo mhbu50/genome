@@ -21,5 +21,14 @@
       "property": "hidden",
       "apps": "genome"
     }
+  ],
+  "Patient": [
+    {
+      "doctype_or_field": "DocField",
+      "value": "1",
+      "field_name": "mobile",
+      "property": "reqd",
+      "apps": "genome"
+    }
   ]
 }
