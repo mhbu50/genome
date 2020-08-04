@@ -81,7 +81,8 @@ frappe.ui.form.on('Lab Test', {
                 "label": __("Mobile"),
                 "fieldname": "mobile",
                 "fieldtype": "Data",
-                "depends_on": `eval: ["SMS","WhatsApp"].includes(doc.media_type)`})
+                "depends_on": `eval: ["SMS","WhatsApp"].includes(doc.media_type)`,
+                "read_only": 1})
             
             new_fields.push({   
                 "label": __("Message Template"),
@@ -102,12 +103,13 @@ frappe.ui.form.on('Lab Test', {
             new_fields.push({   
                 "label": __("Message"),
                 "fieldname": "message",
-                "fieldtype": "Long Text"})
+                "fieldtype": "Long Text",
+                "read_only": 1})
 
-            new_fields.push({   
-                "label": __("Reset Message"),
-                "fieldname": "reset_message",
-                "fieldtype": "Button"})
+            // new_fields.push({   
+            //     "label": __("Reset Message"),
+            //     "fieldname": "reset_message",
+            //     "fieldtype": "Button"})
             
             cur_frm.doc.d = new frappe.ui.Dialog({
                 fields: new_fields,
