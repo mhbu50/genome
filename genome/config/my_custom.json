@@ -154,12 +154,29 @@
       "description": "Category of provider is Collection Agency"
     },
     {
+      "fieldtype": "Data",
+      "translatable": 1,
+      "label": "Referring MRN",
+      "fieldname": "referring_mrn",
+      "insert_after": "referring_party",
+      "apps": "genome"
+    },
+    {
+      "fieldtype": "Data",
+      "translatable": 1,
+      "label": "Referring Party",
+      "fieldname": "referring_party",
+      "apps": "genome",
+      "insert_after": "employee_name"
+    },
+    {
       "fieldtype": "Text",
       "translatable": 1,
       "label": "Result Conclusion",
       "fieldname": "result_conclusion",
       "insert_after": "result_introduction",
-      "apps": "genome"
+      "apps": "genome",
+      "allow_on_submit": 1
     },
     {
       "fieldtype": "Text",
@@ -167,7 +184,8 @@
       "insert_after": "into_conclusion_section_break",
       "label": "Result Introduction",
       "fieldname": "result_introduction",
-      "apps": "genome"
+      "apps": "genome",
+      "allow_on_submit": 1
     },
     {
       "fieldtype": "Link",
@@ -218,7 +236,8 @@
       "label": "National ID",
       "fieldname": "national_id",
       "insert_after": "dob",
-      "apps": "genome"
+      "apps": "genome",
+      "reqd": 1
     },
     {
       "fieldtype": "Data",
