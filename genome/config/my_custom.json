@@ -113,7 +113,8 @@
       "label": "National ID",
       "fieldname": "national_id",
       "insert_after": "hash_id",
-      "apps": "genome"
+      "apps": "genome",
+      "fetch_from": "patient.national_id"
     },
     {
       "fieldtype": "Attach Image",
