@@ -32,7 +32,7 @@
     },
     {
       "doctype_or_field": "DocField",
-      "value": "g-1#####",
+      "value": "g-1.#####.",
       "field_name": "naming_series",
       "property": "options",
       "apps": "genome"
