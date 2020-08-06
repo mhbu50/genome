@@ -29,6 +29,13 @@
       "field_name": "mobile",
       "property": "reqd",
       "apps": "genome"
+    },
+    {
+      "doctype_or_field": "DocField",
+      "value": "g-1#####",
+      "field_name": "naming_series",
+      "property": "options",
+      "apps": "genome"
     }
   ]
 }
