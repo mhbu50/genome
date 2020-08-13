@@ -291,5 +291,14 @@
       "options": "Diseases Sub Type",
       "insert_after": "inheritance_pattern"
     }
+  ],
+  "Healthcare Settings": [
+    {
+      "fieldtype": "Check",
+      "label": "Add patient as a website user",
+      "fieldname": "add_patient_as_a_website_user",
+      "apps": "genome",
+      "insert_after": "manage_customer"
+    }
   ]
 }
