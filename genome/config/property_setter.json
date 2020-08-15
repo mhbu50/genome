@@ -37,5 +37,14 @@
       "property": "options",
       "apps": "genome"
     }
+  ],
+  "Healthcare Settings": [
+    {
+      "doctype_or_field": "DocField",
+      "value": "0",
+      "field_name": "create_test_on_si_submit",
+      "property": "hidden",
+      "apps": "genome"
+    }
   ]
 }

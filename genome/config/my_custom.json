@@ -125,6 +125,14 @@
       "apps": "genome"
     },
     {
+      "fieldtype": "Check",
+      "read_only": 1,
+      "label": "Paid",
+      "fieldname": "paid",
+      "apps": "genome",
+      "insert_after": "invoiced"
+    },
+    {
       "fieldtype": "Select",
       "translatable": 1,
       "label": "Payment Remarks",
@@ -193,7 +201,7 @@
       "label": "Sales Invoice",
       "fieldname": "sales_invoice",
       "apps": "genome",
-      "insert_after": "invoiced",
+      "insert_after": "paid",
       "read_only": 1,
       "options": "Sales Invoice"
     },

@@ -86,8 +86,14 @@ doc_events = {
 	"Lab Test": {"validate": "genome.utils.lab_test.generate_sales_invoice"},
 	"Sales Invoice": {
         "cancel": "genome.utils.sales_invoice.unlink_lab_test",
-        "trash": "genome.utils.sales_invoice.unlink_lab_test"
+        "trash": "genome.utils.sales_invoice.unlink_lab_test",
+		"before_submit": "genome.utils.sales_invoice.before_submit",
+		"on_submit": "genome.utils.sales_invoice.on_submit"
     },
+	"Payment Entry": {
+		'on_submit': "genome.utils.payment_entry.on_submit",
+		"cancel": "genome.utils.payment_entry.cancel"
+	}
 }
 
 # Scheduled Tasks
