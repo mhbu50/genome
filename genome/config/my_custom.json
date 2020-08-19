@@ -1,6 +1,14 @@
 {
   "Lab Test": [
     {
+      "fieldtype": "Read Only",
+      "read_only": 1,
+      "label": "Access Token",
+      "fieldname": "access_token",
+      "apps": "genome",
+      "insert_after": "hash_id"
+    },
+    {
       "fieldtype": "Data",
       "translatable": 1,
       "insert_after": "courier",
@@ -75,15 +83,13 @@
       "insert_after": "genetic_counselor"
     },
     {
-      "fieldtype": "Data",
+      "fieldtype": "Read Only",
       "read_only": 1,
-      "translatable": 1,
       "label": "Hash ID",
       "fieldname": "hash_id",
       "fetch_from": "patient.hash_id",
       "apps": "genome",
-      "insert_after": "arabic_first_name",
-      "hidden": 1
+      "insert_after": "arabic_first_name"
     },
     {
       "fieldtype": "Section Break",

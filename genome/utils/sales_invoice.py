@@ -15,11 +15,17 @@ def before_submit(doc, method):
     verify_lab_test_status(doc)
 
 def on_submit(doc, method):
+    """
+    Mark corresponding Lab Test as Invoiced
+    """
     lab_test = get_lab_test_doc(doc.name)
     if lab_test:
         lab_test.db_set('invoiced', 1)
 
 def verify_lab_test_status(doc):
+    """
+    Verify if the corresponding Lab Test is not in cancelled state
+    """
     lab_test = get_lab_test_doc(doc.name)
     if lab_test and lab_test.docstatus == 2:
         frappe.throw(

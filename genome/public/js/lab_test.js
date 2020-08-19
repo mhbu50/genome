@@ -155,6 +155,13 @@ frappe.ui.form.on('Lab Test', {
                     var doc_args = cur_frm.doc
                     args.message = frappe.render_template(`${args.message}`, {doc : doc_args}); 
                     cur_frm.doc.d.set_value("message", args.message);
+                    if (!cur_frm.doc.access_token){
+                        frappe.call('genome.api.lab_test.set_access_token',
+                        {name: cur_frm.doc.name, token: token})
+                        .then(r =>{
+                            cur_frm.reload_doc()
+                        })
+                    }
                 })
             }else{
                 var token = frappe.utils.get_random(16)
@@ -175,6 +182,13 @@ frappe.ui.form.on('Lab Test', {
         
                     }).then(doc => {
                         cur_frm.doc.d.set_value("message", args.message);
+                        if (!cur_frm.doc.access_token){
+                            frappe.call('genome.api.lab_test.set_access_token',
+                            {name: cur_frm.doc.name, token: token})
+                            .then(r =>{
+                                cur_frm.reload_doc()
+                            })
+                        }
                     })
                 })
             }
