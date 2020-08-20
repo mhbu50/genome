@@ -7,7 +7,8 @@ def unlink_lab_test(doc, method):
         if len(lab_test)> 0:
             lab_test = frappe.get_doc("Lab Test", lab_test[0].name)
             if lab_test.docstatus == 1:
-                frappe.throw(f"Cannot Cancel as Lab Test {lab_test.name} is submitted")
+                frappe.throw(
+                    "Cannot Cancel as Lab Test {} is submitted".format(lab_test.name))
             else:
                 frappe.db.set_value("Lab Test", lab_test.name, "sales_invoice", None)
 

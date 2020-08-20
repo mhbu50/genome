@@ -22,7 +22,7 @@ def download_lab_result_file(token):
     
     frappe.local.response.filecontent = data
     frappe.local.response.type = "download"
-    frappe.local.response.filename = f'{token_doc[0].docname}.pdf'
+    frappe.local.response.filename = '{}.pdf'.format(token_doc[0].docname)
 
 @frappe.whitelist(allow_guest=True)
 def update_payment_status(token, payment):
