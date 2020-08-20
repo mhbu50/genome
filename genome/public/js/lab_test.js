@@ -31,6 +31,64 @@ frappe.ui.form.on('Lab Test', {
             }
             frm.dashboard.show();
         }
+
+        if (frm.doc.docstatus == 1){
+            frm.trigger('generate_buttons')
+        }
+    },
+    generate_buttons(frm){
+        if (!frm.doc.result_introduction){
+            frm.add_custom_button('Introduction And Conclusion', () => {
+                frm.trigger('set_result_introduction_conclusion')
+            }, 'Set');
+        }
+        if (!frm.doc.courier){
+            if (!frm.doc.result_introduction){
+                frm.add_custom_button('Courier Note', () => {
+                    frm.trigger('set_courier_note')
+                }, 'Set');
+            }
+        }
+    },
+    set_result_introduction_conclusion: function (frm) {  
+        let d = new frappe.ui.Dialog({
+            title: 'Result Introduction and Conclusion',
+            fields: [
+                {
+                    label: 'Introduction',
+                    fieldname: 'introduction',
+                    fieldtype: 'Text',
+                    reqd: 1
+                },
+                {
+                    label: 'Conclusion',
+                    fieldname: 'conclusion',
+                    fieldtype: 'Text',
+                    reqd: 1
+                }
+            ],
+            primary_action_label: 'Submit',
+            primary_action(values) {
+                console.log(values);
+                frappe.call('genome.utils.lab_test.set_introduction_conclusion',
+                {
+                    docname: cur_frm.doc.name,
+                    introduction: values.introduction,
+                    conclusion: values.conclusion
+                })
+                .then(r =>{
+                    d.hide();
+                    frappe.msgprint('Result and Conclusion set successfully');
+                    cur_frm.reload_doc();
+                })
+                
+            }
+        });
+        
+        d.show();
+    },
+    set_courier_note: function (frm) {  
+
     },
     render_dashboard: function (frm) {
         frappe.call('genome.utils.lab_test.get_lab_test_finding_count',{ patient: frm.doc.patient, labtest: frm.doc.name }).then(r =>{
@@ -67,7 +125,7 @@ frappe.ui.form.on('Lab Test', {
     show_send_media_dialog: function (frm) {  
         if (cur_frm.doc.d){
             cur_frm.doc.d.show();
-            frm.trigger("set_reset_message_button");
+            // frm.trigger("set_reset_message_button");
         }else{
             let new_fields = []
             new_fields.push({   
@@ -122,7 +180,7 @@ frappe.ui.form.on('Lab Test', {
                 cur_frm.doc.d.set_value('mobile', cur_frm.doc.mobile);
             }
             cur_frm.doc.d.show()
-            frm.trigger("set_reset_message_button");
+            // frm.trigger("set_reset_message_button");
 
         }
     },

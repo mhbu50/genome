@@ -102,7 +102,8 @@
       "label": "Lab Result File",
       "fieldname": "lab_result_file",
       "apps": "genome",
-      "insert_after": "result_conclusion"
+      "insert_after": "result_conclusion",
+      "allow_on_submit": 1
     },
     {
       "fieldtype": "Small Text",
@@ -191,7 +192,8 @@
       "fieldname": "result_conclusion",
       "insert_after": "result_introduction",
       "apps": "genome",
-      "allow_on_submit": 1
+      "allow_on_submit": 1,
+      "read_only": 1
     },
     {
       "fieldtype": "Text",
@@ -200,7 +202,8 @@
       "label": "Result Introduction",
       "fieldname": "result_introduction",
       "apps": "genome",
-      "allow_on_submit": 1
+      "allow_on_submit": 1,
+      "read_only": 1
     },
     {
       "fieldtype": "Link",
@@ -219,7 +222,8 @@
       "options": "Sample Scheduled\nConsent Provided\nSample Deposited\nSample Shipped\nResult Received\nEnvelope Sent",
       "apps": "genome",
       "allow_on_submit": 1,
-      "translatable": 1
+      "translatable": 1,
+      "read_only": 1
     }
   ],
   "Patient": [

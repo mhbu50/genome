@@ -24,3 +24,13 @@ def generate_sales_invoice(doc, method):
 @frappe.whitelist()
 def get_lab_test_finding_count(patient, labtest):
     return frappe.db.count('Lab Test Finding', {'patient': patient, 'lab_test_id': labtest})
+
+@frappe.whitelist()
+def set_introduction_conclusion(docname ,introduction, conclusion):
+    '''
+    Set introduction and conclusion after submit in Lab test
+    '''
+    doc = frappe.get_doc('Lab Test', docname)
+    doc.db_set('result_introduction', introduction)
+    doc.db_set('result_conclusion', conclusion)
+    frappe.db.commit()
