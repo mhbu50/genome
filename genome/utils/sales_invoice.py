@@ -30,7 +30,7 @@ def verify_lab_test_status(doc):
     lab_test = get_lab_test_doc(doc.name)
     if lab_test and lab_test.docstatus == 2:
         frappe.throw(
-            f'Cannot Submit Sales Invoice as Lab Test {lab_test.name} is cancelled')        
+            'Cannot Submit Sales Invoice as Lab Test {} is cancelled'.format(lab_test.name))        
 
 def get_lab_test_doc(sales_invoice):
     lab_test_list = frappe.get_list('Lab Test', 
