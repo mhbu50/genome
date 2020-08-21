@@ -1,4 +1,5 @@
 import frappe
+import json
 
 def generate_sales_invoice(doc, method):
     '''
@@ -34,3 +35,30 @@ def set_introduction_conclusion(docname ,introduction, conclusion):
     doc.db_set('result_introduction', introduction)
     doc.db_set('result_conclusion', conclusion)
     frappe.db.commit()
+
+@frappe.whitelist()
+def set_courier_details(values, lab_test_id):
+    values = json.loads(values)
+    if 'courier' in values or 'air_way_bill_no'  in values:
+        ct_doc = frappe.new_doc('Courier Tracking')
+        ct_doc.courier = values['courier']
+        ct_doc.air_way_bill_no = values['air_way_bill_no']
+        ct_doc.insert()
+        ct_doc.submit()
+        update_cd_in_lab_test(
+            lab_test_id, ct_doc.name, ct_doc.courier, ct_doc.air_way_bill_no
+        )
+    elif 'courier' in values or 'air_way_bill_no'  in values:
+        frappe.throw('Please enter both Courier and Air Way Bill#')
+    elif 'courier_note' in values:
+        ct_doc = frappe.get_doc('Courier Tracking', values['courier_note'])
+        update_cd_in_lab_test(
+            lab_test_id, ct_doc.name, ct_doc.courier, ct_doc.air_way_bill_no
+        )
+    else:
+        frappe.throw('Please enter the information')
+    
+def update_cd_in_lab_test(lab_test_id, name, courier, air_way_bill_no):
+    frappe.db.set_value('Lab Test', lab_test_id, 'courier_note', name)
+    frappe.db.set_value('Lab Test', lab_test_id, 'courier', courier)
+    frappe.db.set_value('Lab Test', lab_test_id, 'air_way_bill_no', air_way_bill_no)

@@ -43,11 +43,9 @@ frappe.ui.form.on('Lab Test', {
             }, 'Set');
         }
         if (!frm.doc.courier){
-            if (!frm.doc.result_introduction){
-                frm.add_custom_button('Courier Note', () => {
-                    frm.trigger('set_courier_note')
-                }, 'Set');
-            }
+            frm.add_custom_button('Courier Note', () => {
+                frm.trigger('set_courier_note')
+            }, 'Set');
         }
     },
     set_result_introduction_conclusion: function (frm) {  
@@ -69,7 +67,6 @@ frappe.ui.form.on('Lab Test', {
             ],
             primary_action_label: 'Submit',
             primary_action(values) {
-                console.log(values);
                 frappe.call('genome.utils.lab_test.set_introduction_conclusion',
                 {
                     docname: cur_frm.doc.name,
@@ -78,7 +75,7 @@ frappe.ui.form.on('Lab Test', {
                 })
                 .then(r =>{
                     d.hide();
-                    frappe.msgprint('Result and Conclusion set successfully');
+                    frappe.show_alert('Result and Conclusion set successfully');
                     cur_frm.reload_doc();
                 })
                 
@@ -88,7 +85,47 @@ frappe.ui.form.on('Lab Test', {
         d.show();
     },
     set_courier_note: function (frm) {  
-
+        let d = new frappe.ui.Dialog({
+            title: 'Enter details',
+            fields: [
+                {
+                    label: 'Courier Note',
+                    fieldname: 'courier_note',
+                    fieldtype: 'Link',
+                    options: 'Courier Tracking'
+                },
+                {
+                    label: 'Create New',
+                    fieldname: 'create_new_section_break',
+                    fieldtype: 'Section Break'
+                },
+                {
+                    label: 'Courier',
+                    fieldname: 'courier',
+                    fieldtype: 'Data'
+                },
+                {
+                    label: 'Air Way Bill#',
+                    fieldname: 'air_way_bill_no',
+                    fieldtype: 'Data'
+                }
+            ],
+            primary_action_label: 'Submit',
+            primary_action(values) {
+                frappe.call('genome.utils.lab_test.set_courier_details',
+                {
+                    lab_test_id: cur_frm.doc.name,
+                    values
+                })
+                .then(r =>{
+                    d.hide();
+                    frappe.show_alert('Courier set successfully');
+                    cur_frm.reload_doc();
+                })
+            }
+        });
+        
+        d.show();
     },
     render_dashboard: function (frm) {
         frappe.call('genome.utils.lab_test.get_lab_test_finding_count',{ patient: frm.doc.patient, labtest: frm.doc.name }).then(r =>{
