@@ -102,7 +102,8 @@ frappe.ui.form.on('Lab Test', {
                 {
                     label: 'Courier',
                     fieldname: 'courier',
-                    fieldtype: 'Data'
+                    fieldtype: 'Link',
+                    options: 'Supplier'
                 },
                 {
                     label: 'Air Way Bill#',
