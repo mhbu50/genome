@@ -1,0 +1,191 @@
+[
+ {
+  "add_rejected_reason": 0,
+  "docstatus": 0,
+  "doctype": "Workflow",
+  "document_type": "Lab Test",
+  "flowy_output": null,
+  "is_active": 1,
+  "make_custom_report": 0,
+  "modified": "2020-08-24 14:17:58.435423",
+  "name": "Lab Test",
+  "old_email": 0,
+  "old_states": 0,
+  "old_transitions": 0,
+  "old_workflow": null,
+  "override_status": 0,
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "send_email_alert": 1,
+  "states": [
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "0",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Draft",
+    "update_field": "stage",
+    "update_value": "Draft"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sample Scheduled",
+    "update_field": "stage",
+    "update_value": "Sample Scheduled"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Consent Provided",
+    "update_field": "stage",
+    "update_value": "Consent Provided"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sample Deposited",
+    "update_field": "stage",
+    "update_value": "Sample Deposited"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sample Shipped",
+    "update_field": "stage",
+    "update_value": "Sample Shipped"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Result Received",
+    "update_field": "stage",
+    "update_value": "Result Received"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Envelope Sent",
+    "update_field": "stage",
+    "update_value": "Envelope Sent"
+   },
+   {
+    "allow_edit": "Healthcare Administrator",
+    "doc_status": "1",
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Lab Test",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Signed Off",
+    "update_field": "stage",
+    "update_value": "Signed Off"
+   }
+  ],
+  "transitions": [
+   {
+    "action": "Submit",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Sample Scheduled",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Draft"
+   },
+   {
+    "action": "Deposit Sample",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Sample Deposited",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sample Scheduled"
+   },
+   {
+    "action": "Ship Sample",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Sample Shipped",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sample Deposited"
+   },
+   {
+    "action": "Receive Result",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Result Received",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Sample Shipped"
+   },
+   {
+    "action": "Send Envelope",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Envelope Sent",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Result Received"
+   },
+   {
+    "action": "Sign Off",
+    "allow_self_approval": 1,
+    "allowed": "Healthcare Administrator",
+    "condition": null,
+    "next_state": "Signed Off",
+    "parent": "Lab Test",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Envelope Sent"
+   }
+  ],
+  "with_issuer": 0,
+  "workflow_name": "Lab Test",
+  "workflow_state_field": "stage"
+ }
+]

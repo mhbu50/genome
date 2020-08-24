@@ -1,0 +1,98 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 14:19:41.097921",
+  "name": "Draft",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Danger",
+  "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 12:08:16.918378",
+  "name": "Sample Deposited",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Info",
+  "workflow_state_name": "Sample Deposited"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 12:08:42.543858",
+  "name": "Sample Shipped",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Primary",
+  "workflow_state_name": "Sample Shipped"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 12:09:00.638236",
+  "name": "Result Received",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Success",
+  "workflow_state_name": "Result Received"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 12:09:12.945198",
+  "name": "Envelope Sent",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Success",
+  "workflow_state_name": "Envelope Sent"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 13:50:43.633024",
+  "name": "Signed Off",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Success",
+  "workflow_state_name": "Signed Off"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 14:13:40.824060",
+  "name": "Consent Provided",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Info",
+  "workflow_state_name": "Consent Provided"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2020-08-24 14:14:35.381851",
+  "name": "Sample Scheduled",
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "style": "Info",
+  "workflow_state_name": "Sample Scheduled"
+ }
+]

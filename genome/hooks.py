@@ -129,3 +129,29 @@ doc_events = {
 # 	"frappe.desk.doctype.event.event.get_events": "genome.event.get_events"
 # }
 
+fixtures = [
+	{
+		'dt': 'Workflow',
+		'filters': [
+			['name', 'in', [
+				'Lab Test'
+			]]
+		]
+	},
+	{
+                'dt': 'Workflow State',
+                'filters': [
+                        ['name', 'in', [
+                                'Draft',
+				'Sample Scheduled',
+				'Consent Provided',
+				'Sample Deposited',
+				'Sample Shipped',
+				'Result Received',
+				'Envelope Sent',
+				'Signed Off'
+                        ]]
+                ]
+        }
+
+]
