@@ -27,7 +27,7 @@ def get_lab_test_finding_count(patient, labtest):
     return frappe.db.count('Lab Test Finding', {'patient': patient, 'lab_test_id': labtest})
 
 @frappe.whitelist()
-def set_introduction_conclusion(docname ,introduction, conclusion):
+def set_introduction_conclusion(docname ,introduction = None, conclusion = None):
     '''
     Set introduction and conclusion after submit in Lab test
     '''

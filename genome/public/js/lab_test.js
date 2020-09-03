@@ -33,16 +33,20 @@ frappe.ui.form.on('Lab Test', {
         }
 
         if (frm.doc.docstatus == 1){
+            $(`[data-label = "Approve"]`).hide()
+            $(`[data-label = "Reject"]`).hide()
+            $(`[data-label = "Send%20SMS"]`).hide()
             frm.trigger('generate_buttons')
         }
     },
     generate_buttons(frm){
-        if (!frm.doc.result_introduction){
+        if (frm.doc.stage == 'Result Received' || 
+            frm.doc.stage == 'Envelope Sent'){
             frm.add_custom_button('Introduction And Conclusion', () => {
                 frm.trigger('set_result_introduction_conclusion')
             }, 'Set');
         }
-        if (!frm.doc.courier){
+        if (!frm.doc.courier && frm.doc.stage == 'Sample Deposited'){
             frm.add_custom_button('Courier Note', () => {
                 frm.trigger('set_courier_note')
             }, 'Set');
@@ -56,13 +60,13 @@ frappe.ui.form.on('Lab Test', {
                     label: 'Introduction',
                     fieldname: 'introduction',
                     fieldtype: 'Text',
-                    reqd: 1
+                    default : frm.doc.result_introduction
                 },
                 {
                     label: 'Conclusion',
                     fieldname: 'conclusion',
                     fieldtype: 'Text',
-                    reqd: 1
+                    default : frm.doc.result_conclusion
                 }
             ],
             primary_action_label: 'Submit',
@@ -102,7 +106,8 @@ frappe.ui.form.on('Lab Test', {
                 {
                     label: 'Courier',
                     fieldname: 'courier',
-                    fieldtype: 'Data'
+                    fieldtype: 'Link',
+                    options: 'Supplier'
                 },
                 {
                     label: 'Air Way Bill#',
