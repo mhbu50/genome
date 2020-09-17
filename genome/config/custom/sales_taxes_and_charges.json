@@ -1,0 +1,33 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Sales Taxes and Charges",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "active_module": null,
+   "creation": "2019-11-10 19:41:16.350337",
+   "default_value": null,
+   "doc_type": "Sales Taxes and Charges",
+   "docstatus": 0,
+   "doctype_or_field": "DocType",
+   "field_name": "",
+   "idx": 0,
+   "modified": "2019-11-10 19:41:16.350337",
+   "modified_by": "Administrator",
+   "modules": null,
+   "name": "Sales Taxes and Charges-autoname",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "autoname",
+   "property_type": "",
+   "value": "INVTD.######"
+  }
+ ],
+ "sync_on_migrate": 1
+}

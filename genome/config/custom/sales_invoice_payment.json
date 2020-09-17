@@ -1,0 +1,33 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Sales Invoice Payment",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "active_module": null,
+   "creation": "2019-02-20 10:48:08.233452",
+   "default_value": null,
+   "doc_type": "Sales Invoice Payment",
+   "docstatus": 0,
+   "doctype_or_field": "DocType",
+   "field_name": null,
+   "idx": 0,
+   "modified": "2019-02-20 10:48:08.233452",
+   "modified_by": "Administrator",
+   "modules": null,
+   "name": "Sales Invoice Payment-read_only_onload",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "read_only_onload",
+   "property_type": "Check",
+   "value": null
+  }
+ ],
+ "sync_on_migrate": 1
+}
