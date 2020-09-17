@@ -215,6 +215,11 @@ frappe.ui.form.on('Lab Test', {
                 fields: new_fields,
                 primary_action: function (e) {
                     var v = cur_frm.doc.d.get_values();
+                    frappe.call("frappe.core.doctype.sms_settings.sms_settings.send_sms",
+                    {receiver_list: [v.mobile], msg: v.message})
+                    .then(r =>{
+                        cur_frm.doc.d.hide();
+                    })
                 },
                 primary_action_label: __('Send')
             })

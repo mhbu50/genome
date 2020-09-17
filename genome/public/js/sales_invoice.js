@@ -52,11 +52,16 @@ frappe.ui.form.on('Sales Invoice',{
                 fields: new_fields,
                 primary_action: function (e) {
                     var v = cur_frm.doc.d.get_values();
+                    frappe.call("frappe.core.doctype.sms_settings.sms_settings.send_sms",
+                    {receiver_list: [v.mobile], msg: v.message})
+                    .then(r =>{
+                        cur_frm.doc.d.hide()
+                    })
                 },
                 primary_action_label: __('Send')
             })
-            if (cur_frm.doc.mobile) {
-                cur_frm.doc.d.set_value('mobile', cur_frm.doc.mobile);
+            if (cur_frm.doc.patient_mobile) {
+                cur_frm.doc.d.set_value('mobile', cur_frm.doc.patient_mobile);
             }
             cur_frm.doc.d.show()
 
@@ -83,8 +88,9 @@ frappe.ui.form.on('Sales Invoice',{
                     args.message = frappe.render_template(`${args.message}`, {doc : doc_args}); 
                     cur_frm.doc.d.set_value("message", args.message);
                     if (!cur_frm.doc.access_token){
-                        frappe.db.set_value('Sales Invoice', cur_frm.doc.name, 'access_token', token)
-                        .then(r => {
+                        frappe.call('genome.api.sales_invoice.set_access_token',
+                        {name: cur_frm.doc.name, token: token})
+                        .then(r =>{
                             cur_frm.reload_doc()
                         })
                     }
@@ -109,8 +115,9 @@ frappe.ui.form.on('Sales Invoice',{
                     }).then(doc => {
                         cur_frm.doc.d.set_value("message", args.message);
                         if (!cur_frm.doc.access_token){
-                            frappe.db.set_value('Sales Invoice', cur_frm.doc.name, 'access_token', token)
-                            .then(r => {
+                            frappe.call('genome.api.sales_invoice.set_access_token',
+                            {name: cur_frm.doc.name, token: token})
+                            .then(r =>{
                                 cur_frm.reload_doc()
                             })
                         }
