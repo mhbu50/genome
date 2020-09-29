@@ -42,7 +42,14 @@ frappe.ui.form.on('Sales Invoice',{
                 "fieldname": "print_format",
                 "fieldtype": "Select",
                 "options": cur_frm.doc.d_print_format_options,
-                "reqd": 1})
+                "reqd": 1,
+                onchange: function () {
+                    const template = cur_frm.doc.d.get_value('template')
+                    if (template){
+                        cur_frm.doc.d.set_value('template', template)
+                    }
+                    }
+                })
             
             new_fields.push({   
                 "label": __("Message Template"),

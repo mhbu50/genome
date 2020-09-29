@@ -17,6 +17,14 @@ def get_attachment_link(doc, print_format):
 
     key = doc.get_signature()
 
-    link = f'{ get_url() }/{ doc.doctype }/{ doc.name }?format={ print_format}&key={ key }'
+    # Not Supported in python 2
+    # link = f'{ get_url() }/{ doc.doctype }/{ doc.name }?format={ print_format}&key={ key }'
+    link = "{url}/{doctype}/{name}?format={print_format}&key={key}".format(
+        url = get_url(),
+        doctype = doc.doctype,
+        name = doc.name,
+        print_format = print_format,
+        key = key
+    )
     link = requote_uri(link)
     return link
