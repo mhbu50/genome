@@ -1,5 +1,6 @@
 import frappe
 import io
+from requests.utils import requote_uri
 
 @frappe.whitelist(allow_guest=True)
 def download_lab_result_file(token):
@@ -12,9 +13,10 @@ def download_lab_result_file(token):
     token_doc = get_token_doc(token)
 
     file_path = frappe.get_all('Lab Test', fields= ['lab_result_file'],
-    filters = {'docstatus': ['!=', -1], 'name': token_doc[0].docname})
+    filters = {'docstatus': ['!=', 2], 'name': token_doc[0].docname})
     site_path = frappe.get_site_path()
     file_path = site_path + file_path[0].lab_result_file
+    file_path = requote_uri(file_path)
     lab_test_file = io.open(file_path, 'rb', buffering=0)
     data = lab_test_file.read()
     if not data:
