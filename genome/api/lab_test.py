@@ -15,7 +15,10 @@ def download_lab_result_file(token):
     file_path = frappe.get_all('Lab Test', fields= ['lab_result_file'],
     filters = {'docstatus': ['!=', 2], 'name': token_doc[0].docname})
     site_path = frappe.get_site_path()
-    file_path = site_path + file_path[0].lab_result_file
+    if 'private' in file_path[0].lab_result_file:
+        file_path = site_path + file_path[0].lab_result_file
+    else:
+        file_path = site_path + '/public' + file_path[0].lab_result_file
     file_path = requote_uri(file_path)
     lab_test_file = io.open(file_path, 'rb', buffering=0)
     data = lab_test_file.read()

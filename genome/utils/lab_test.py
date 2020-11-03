@@ -1,6 +1,21 @@
 import frappe
 import json
 
+def validate_file_attachment(doc, method):
+    if doc.lab_result_file:
+        file_list = frappe.get_list('File', {
+            'attached_to_doctype': doc.doctype,
+            'attached_to_name': doc.name,
+            'file_url': doc.lab_result_file
+        }, ['name', 'is_private'])
+        if not file_list[0].is_private:
+            doc.lab_result_file = None
+            frappe.delete_doc('File', file_list[0].name)
+            frappe.msgprint('Please attach files as Private.')
+        else:
+            frappe.msgprint('File Attached Successfully')
+
+
 def generate_sales_invoice(doc, method):
     '''
     On creation of new Lab test generates Sales invoice 

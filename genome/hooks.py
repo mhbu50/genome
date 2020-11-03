@@ -87,7 +87,13 @@ doc_events = {
 	"Patient": {
 		"after_insert": "genome.genome.tool.after_insert_patient"
 	},
-	"Lab Test": {"validate": "genome.utils.lab_test.generate_sales_invoice"},
+	"Lab Test": {
+		"validate": [
+			"genome.utils.lab_test.generate_sales_invoice", 
+			"genome.utils.lab_test.validate_file_attachment"],
+		"on_update": "genome.utils.lab_test.validate_file_attachment",
+		"on_update_after_submit": "genome.utils.lab_test.validate_file_attachment"
+		},
 	"Sales Invoice": {
         "cancel": "genome.utils.sales_invoice.unlink_lab_test",
         "trash": "genome.utils.sales_invoice.unlink_lab_test",
