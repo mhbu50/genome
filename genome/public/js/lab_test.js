@@ -20,6 +20,7 @@ frappe.ui.form.on('Lab Test', {
     },
 	refresh :  function(frm){
 		if (!frm.is_new()){
+            frm.events.create_sales_invoice_button(frm);
             frm.add_custom_button('Send Message', () => {
 				frm.trigger("show_send_media_dialog");
             })
@@ -37,6 +38,19 @@ frappe.ui.form.on('Lab Test', {
             $(`[data-label = "Reject"]`).hide()
             $(`[data-label = "Send%20SMS"]`).hide()
             frm.trigger('generate_buttons')
+        }
+    },
+    create_sales_invoice_button(frm){
+        if (frm.doc.stage !== 'Signed Off' && frm.doc.docstatus !== 2 && !frm.doc.sales_invoice){
+            frm.add_custom_button('Create Sales Invoice', () => {
+                frappe.call('genome.utils.lab_test.generate_sales_invoice', {
+                    doc: frm.doc,
+                    method: 'validate'
+                }).then(r => {
+                    frappe.msgprint('Sales Invoice# ' + r.message + ' Created')
+                    frm.reload_doc();
+                })
+            })
         }
     },
     generate_buttons(frm){

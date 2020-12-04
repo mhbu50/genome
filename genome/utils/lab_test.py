@@ -15,13 +15,17 @@ def validate_file_attachment(doc, method):
         else:
             frappe.msgprint('File Attached Successfully')
 
-
+@frappe.whitelist()
 def generate_sales_invoice(doc, method):
     '''
     On creation of new Lab test generates Sales invoice 
     using the item from the template field and link it with the lab test.
     '''
-    if doc.sales_invoice: return
+    if type(doc) != object:
+        doc = json.loads(doc)
+        from erpnext.healthcare.doctype.lab_test.lab_test import LabTest
+        doc = LabTest(**doc)
+    if hasattr(doc, 'sales_invoice') and doc.sales_invoice: return
     item_code, lab_test_rate = frappe.get_value('Lab Test Template', doc.template, ['item', 'lab_test_rate'])
     sales_invoice = frappe.new_doc("Sales Invoice")
     doc_map = {
@@ -42,7 +46,12 @@ def generate_sales_invoice(doc, method):
         "rate": lab_test_rate
     })
     sales_invoice.save()
-    doc.sales_invoice = sales_invoice.name
+    if doc.is_new():
+        doc.sales_invoice = sales_invoice.name
+    else:
+        doc.db_set('sales_invoice', sales_invoice.name)
+        return sales_invoice.name
+    
 
 @frappe.whitelist()
 def get_lab_test_finding_count(patient, labtest):

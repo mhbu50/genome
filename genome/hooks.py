@@ -95,8 +95,8 @@ doc_events = {
 		"on_update_after_submit": "genome.utils.lab_test.validate_file_attachment"
 		},
 	"Sales Invoice": {
-        "cancel": "genome.utils.sales_invoice.unlink_lab_test",
-        "trash": "genome.utils.sales_invoice.unlink_lab_test",
+        "on_cancel": "genome.utils.sales_invoice.unlink_lab_test",
+        "on_trash": "genome.utils.sales_invoice.unlink_lab_test",
 		"before_submit": "genome.utils.sales_invoice.before_submit",
 		"on_submit": "genome.utils.sales_invoice.on_submit"
     },
