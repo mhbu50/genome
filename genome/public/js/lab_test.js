@@ -45,7 +45,7 @@ frappe.ui.form.on('Lab Test', {
             frm.add_custom_button('Create Sales Invoice', () => {
                 frappe.call('genome.utils.lab_test.generate_sales_invoice', {
                     doc: frm.doc,
-                    method: 'validate'
+                    method: 'frm-validate'
                 }).then(r => {
                     frappe.msgprint('Sales Invoice# ' + r.message + ' Created')
                     frm.reload_doc();

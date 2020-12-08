@@ -21,7 +21,7 @@ def generate_sales_invoice(doc, method):
     On creation of new Lab test generates Sales invoice 
     using the item from the template field and link it with the lab test.
     '''
-    if type(doc) != object:
+    if method == 'frm-validate':
         doc = json.loads(doc)
         from erpnext.healthcare.doctype.lab_test.lab_test import LabTest
         doc = LabTest(**doc)
