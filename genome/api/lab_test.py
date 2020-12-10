@@ -1,7 +1,7 @@
 import frappe
 import io
-from requests.utils import requote_uri
-from urllib.parse import urlparse
+# from requests.utils import requote_uri
+# from urllib.parse import urlparse
 
 @frappe.whitelist(allow_guest=True)
 def download_lab_result_file(token):
