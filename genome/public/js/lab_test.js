@@ -189,7 +189,18 @@ frappe.ui.form.on('Lab Test', {
                 "fieldname": "media_type", 
                 "fieldtype": "Select", 
                 "options": "SMS\nWhatsApp\nEmail",
-                "reqd": 1})
+                "reqd": 1,
+                onchange: function () {
+                    frappe.db.get_value('Patient', cur_frm.doc.patient, 'mobile')
+                    .then(r => {
+                        if (r.message && r.message.mobile) {
+                            cur_frm.doc.d.set_value('mobile', r.message.mobile);
+                        }else{
+                            frappe.msgprint('No Mobile Number recorded for this Patient')
+                        }
+                    })
+                }
+            })
 
             new_fields.push({
                 "label": __("Mobile"),
@@ -237,10 +248,15 @@ frappe.ui.form.on('Lab Test', {
                 },
                 primary_action_label: __('Send')
             })
-            if (cur_frm.doc.mobile) {
-                cur_frm.doc.d.set_value('mobile', cur_frm.doc.mobile);
-            }
-            cur_frm.doc.d.show()
+            frappe.db.get_value('Patient', cur_frm.doc.patient, 'mobile')
+            .then(r => {
+                if (r.message && r.message.mobile) {
+                    cur_frm.doc.d.set_value('mobile', r.message.mobile);
+                }else{
+                    frappe.msgprint('No Mobile Number recorded for this Patient')
+                }
+                cur_frm.doc.d.show()
+            })
             // frm.trigger("set_reset_message_button");
 
         }
