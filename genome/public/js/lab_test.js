@@ -183,81 +183,81 @@ frappe.ui.form.on('Lab Test', {
             cur_frm.doc.d.show();
             // frm.trigger("set_reset_message_button");
         }else{
-            let new_fields = []
-            new_fields.push({   
-                "label": __("Media Type"), 
-                "fieldname": "media_type", 
-                "fieldtype": "Select", 
-                "options": "SMS\nWhatsApp\nEmail",
-                "reqd": 1,
-                onchange: function () {
-                    frappe.db.get_value('Patient', cur_frm.doc.patient, 'mobile')
-                    .then(r => {
-                        if (r.message && r.message.mobile) {
-                            cur_frm.doc.d.set_value('mobile', r.message.mobile);
-                        }else{
-                            frappe.msgprint('No Mobile Number recorded for this Patient')
-                        }
-                    })
-                }
-            })
-
-            new_fields.push({
-                "label": __("Mobile"),
-                "fieldname": "mobile",
-                "fieldtype": "Data",
-                "depends_on": `eval: ["SMS","WhatsApp"].includes(doc.media_type)`,
-                "read_only": 1})
-            
-            new_fields.push({   
-                "label": __("Message Template"),
-                "fieldname": "template",
-                "fieldtype": "Link",
-                "options": "SMS Template",
-                "reqd": 1,
-                onchange: function () {
-                    var args = cur_frm.doc.d.get_values();
-                    if (args.template != undefined) {
-                        frappe.db.get_doc('SMS Template', args.template).then(doc => {
-                            cur_frm.doc.d.set_value('message', doc.sms_text);
-                            cur_frm.trigger("set_token");
-                        })
-                    }
-                }})
-
-            new_fields.push({   
-                "label": __("Message"),
-                "fieldname": "message",
-                "fieldtype": "Long Text",
-                "read_only": 1})
-
-            // new_fields.push({   
-            //     "label": __("Reset Message"),
-            //     "fieldname": "reset_message",
-            //     "fieldtype": "Button"})
-            
-            cur_frm.doc.d = new frappe.ui.Dialog({
-                fields: new_fields,
-                primary_action: function (e) {
-                    var v = cur_frm.doc.d.get_values();
-                    frappe.call("frappe.core.doctype.sms_settings.sms_settings.send_sms",
-                    {receiver_list: [v.mobile], msg: v.message})
-                    .then(r =>{
-                        cur_frm.doc.d.hide();
-                    })
-                },
-                primary_action_label: __('Send')
-            })
-            frappe.db.get_value('Patient', cur_frm.doc.patient, 'mobile')
-            .then(r => {
-                if (r.message && r.message.mobile) {
-                    cur_frm.doc.d.set_value('mobile', r.message.mobile);
+            // Getting Mobile Numbers
+            let patient_numbers = "";
+            let patient_default_number = "";
+            frappe.call("genome.api.lab_test.get_patient_mobile_numbers",{
+                "patient": frm.doc.patient
+            }).then(r => {
+                if (r.message.length > 0){
+                    patient_numbers = r.message.split("\n");
+                    patient_default_number = patient_numbers[0];
                 }else{
-                    frappe.msgprint('No Mobile Number recorded for this Patient')
+                    patient_numbers = "Not Available";
+                    patient_default_number = "Not Available";
                 }
+            
+
+                let new_fields = []
+
+                new_fields.push({   
+                    "label": __("Media Type"), 
+                    "fieldname": "media_type", 
+                    "fieldtype": "Select", 
+                    "options": "SMS\nWhatsApp\nEmail",
+                    "default": "SMS",
+                    "reqd": 1,
+                    onchange: function () {
+                    }
+                })
+
+                new_fields.push({
+                    "label": __("Mobile"),
+                    "fieldname": "mobile",
+                    "fieldtype": "Select",
+                    "options": patient_numbers,
+                    "default": patient_default_number,
+                    "depends_on": `eval: ["SMS","WhatsApp"].includes(doc.media_type)`
+                })
+                
+                new_fields.push({   
+                    "label": __("Message Template"),
+                    "fieldname": "template",
+                    "fieldtype": "Link",
+                    "options": "SMS Template",
+                    "reqd": 1,
+                    onchange: function () {
+                        var args = cur_frm.doc.d.get_values();
+                        if (args.template != undefined) {
+                            frappe.db.get_doc('SMS Template', args.template).then(doc => {
+                                cur_frm.doc.d.set_value('message', doc.sms_text);
+                                cur_frm.trigger("set_token");
+                            })
+                        }
+                    }})
+
+                new_fields.push({   
+                    "label": __("Message"),
+                    "fieldname": "message",
+                    "fieldtype": "Long Text",
+                    "read_only": 1})
+
+                
+                cur_frm.doc.d = new frappe.ui.Dialog({
+                    fields: new_fields,
+                    primary_action: function (e) {
+                        var v = cur_frm.doc.d.get_values();
+                        frappe.call("frappe.core.doctype.sms_settings.sms_settings.send_sms",
+                        {receiver_list: [v.mobile], msg: v.message})
+                        .then(r =>{
+                            cur_frm.doc.d.hide();
+                        })
+                    },
+                    primary_action_label: __('Send')
+                })
                 cur_frm.doc.d.show()
+                
             })
-            // frm.trigger("set_reset_message_button");
 
         }
     },

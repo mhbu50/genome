@@ -57,3 +57,16 @@ def get_token_doc(token):
 @frappe.whitelist()
 def set_access_token(name, token):
     frappe.db.set_value('Lab Test', name, 'access_token', token)
+
+
+@frappe.whitelist()
+def get_patient_mobile_numbers(patient):
+    numbers = ""
+    patient_number, customer = frappe.db.get_value("Patient", patient, ["mobile", "customer"])
+    customer_number = frappe.db.get_value("Customer", customer, "mobile_no")
+
+    if patient_number:
+        numbers += str(patient_number)
+    if customer_number:
+        numbers += "\n{}".format(str(customer_number))
+    return numbers
