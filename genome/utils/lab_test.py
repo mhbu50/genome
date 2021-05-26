@@ -8,7 +8,8 @@ def validate_file_attachment(doc, method):
             'attached_to_name': doc.name,
             'file_url': doc.lab_result_file
         }, ['name', 'is_private'])
-        if not file_list[0].is_private:
+
+        if len(file_list) and not file_list[0].is_private:
             doc.lab_result_file = None
             frappe.delete_doc('File', file_list[0].name)
             frappe.msgprint('Please attach files as Private.')
