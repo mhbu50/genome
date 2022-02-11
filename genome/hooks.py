@@ -126,6 +126,9 @@ doc_events = {
 # 		"genome.tasks.monthly"
 # 	]
 # }
+override_doctype_class = {
+    "Patient": "genome.utils.patient.CustomPatient"
+}
 
 # Testing
 # -------
