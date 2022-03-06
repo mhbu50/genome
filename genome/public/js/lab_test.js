@@ -38,6 +38,12 @@ frappe.ui.form.on('Lab Test', {
             $(`[data-label = "Reject"]`).hide()
             $(`[data-label = "Send%20SMS"]`).hide()
             frm.trigger('generate_buttons')
+            
+            // Work around to attach files to a field on update after submit
+            frappe.call('genome.api.lab_test.update_lab_result_file_link', {docname: frm.doc.name})
+            .then(r =>{
+                frm.refresh_field('lab_result_file')
+            })
         }
     },
     create_sales_invoice_button(frm){

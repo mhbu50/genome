@@ -1,20 +1,21 @@
 import frappe
 import io
-# from requests.utils import requote_uri
-# from urllib.parse import urlparse
+
 
 @frappe.whitelist(allow_guest=True)
 def download_lab_result_file(token):
     """
     prompts to downloads Lab Test File for the given token
-    
+
     example:
     SITEURL/api/method/genome.api.lab_test.download_lab_result_file?token=urmDSaVqgTYwmQmz
     """
     token_doc = get_token_doc(token)
 
-    file_path = frappe.get_all('Lab Test', fields= ['lab_result_file'],
-    filters = {'docstatus': ['!=', 2], 'name': token_doc[0].docname})
+    file_path = frappe.get_all(
+        'Lab Test',
+        fields=['lab_result_file'],
+        filters={'docstatus': ['!=', 2], 'name': token_doc[0].docname})
     site_path = frappe.get_site_path()
     if 'private' in file_path[0].lab_result_file:
         file_path = site_path + file_path[0].lab_result_file
@@ -25,16 +26,17 @@ def download_lab_result_file(token):
     data = lab_test_file.read()
     if not data:
         frappe.msgprint('No data')
-    
+
     frappe.local.response.filecontent = data
     frappe.local.response.type = "download"
     frappe.local.response.filename = '{}.pdf'.format(token_doc[0].docname)
+
 
 @frappe.whitelist(allow_guest=True)
 def update_payment_status(token, payment):
     """
     Updates payment remarks for the Lab Test
-    
+
     example:
     SITEURL/api/method/genome.api.lab_test.update_payment_status?token=urmDSaVqgTYwmQmz?payment=Partially%20Paid
     """
@@ -45,14 +47,18 @@ def update_payment_status(token, payment):
         lab_test.db_set('payment_remarks', payment)
     elif payment == 'Paid':
         lab_test.db_set('payment_remarks', payment)
-    
+
     frappe.session.user = "Guest"
 
     return payment
 
+
 def get_token_doc(token):
-    return frappe.get_all('SMS Token', fields= ['docname'], 
-    filters = {'docstatus': 1, 'document_type': 'Lab Test', 'name': token})
+    return frappe.get_all(
+        'SMS Token',
+        fields=['docname'],
+        filters={'docstatus': 1, 'document_type': 'Lab Test', 'name': token})
+
 
 @frappe.whitelist()
 def set_access_token(name, token):
@@ -70,3 +76,20 @@ def get_patient_mobile_numbers(patient):
     if customer_number:
         numbers += "\n{}".format(str(customer_number))
     return numbers
+
+
+@frappe.whitelist()
+def update_lab_result_file_link(docname):
+    lab_result_file_url = frappe.db.get_value(
+        'File',
+        {'attached_to_doctype': 'Lab Test', 'attached_to_name': docname, 'attached_to_field': 'lab_result_file'},
+        ['file_url'])
+
+    lab_test = frappe.get_doc('Lab Test', docname)
+
+    if lab_result_file_url:
+        lab_test.db_set('lab_result_file', lab_result_file_url, update_modified=False)
+    else:
+        lab_test.db_set('lab_result_file', None, update_modified=False)
+
+    lab_test.notify_update()
