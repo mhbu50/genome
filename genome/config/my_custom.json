@@ -51,8 +51,7 @@
       "label": "Courier",
       "fieldname": "courier",
       "apps": "genome",
-      "insert_after": "courier_note",
-      "options": "Courier Tracking"
+      "insert_after": "courier_note"
     },
     {
       "fieldtype": "Link",
